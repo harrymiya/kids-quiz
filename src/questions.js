@@ -1,3 +1,7 @@
+import { BANKS, KNOWLEDGE, knowledgeName, unitGrade } from './curriculum';
+
+export { KNOWLEDGE, knowledgeName, unitGrade };
+
 const randomFrom = (items) => items[Math.floor(Math.random() * items.length)];
 export const shuffle = (items) => {
   const result = [...items];
@@ -8,44 +12,13 @@ export const shuffle = (items) => {
   return result;
 };
 
-const pools = {
-  chinese: [
-    ['看图选汉字', '🌞', '日', ['日', '月', '天']], ['看图选汉字', '🌙', '月', ['月', '日', '云']],
-    ['看图选汉字', '⛰️', '山', ['山', '水', '火']], ['看图选汉字', '💧', '水', ['水', '火', '山']],
-    ['看图选汉字', '🔥', '火', ['火', '木', '土']], ['看图选汉字', '🚪', '门', ['门', '问', '开']],
-    ['看图选汉字', '🚗', '车', ['车', '东', '来']], ['看图选汉字', '✋', '手', ['手', '毛', '牛']],
-  ],
-  english: [
-    ['选择对应的首字母', 'Apple 苹果', 'A', ['A', 'B', 'C']], ['选择对应的首字母', 'Ball 球', 'B', ['B', 'D', 'P']],
-    ['选择对应的首字母', 'Cat 猫', 'C', ['C', 'G', 'O']], ['选择对应的首字母', 'Dog 狗', 'D', ['D', 'B', 'P']],
-    ['选择对应的英文', '🔴 红色', 'red', ['red', 'blue', 'green']], ['选择对应的英文', '🔵 蓝色', 'blue', ['blue', 'black', 'green']],
-    ['选择对应的英文', '🟢 绿色', 'green', ['green', 'gray', 'red']], ['选择对应的英文', '🟡 黄色', 'yellow', ['yellow', 'red', 'pink']],
-  ],
-  science: [
-    ['哪一种动物会冬眠？', '动物世界', '熊', ['熊', '鸡', '鱼']], ['植物制造养分需要什么？', '植物生长', '阳光', ['阳光', '月亮', '雪']],
-    ['下雨前天空常出现什么？', '天气观察', '乌云', ['乌云', '彩虹', '星星']], ['人的心脏在哪里？', '认识身体', '胸腔', ['胸腔', '手掌', '脚底']],
-    ['水结冰后会变成什么？', '物质变化', '冰', ['冰', '沙子', '烟']], ['哪种动物用鳃呼吸？', '动物世界', '鱼', ['鱼', '猫', '鸟']],
-    ['种子发芽通常需要什么？', '植物生长', '水和适宜温度', ['水和适宜温度', '油和冰', '只有石头']], ['影子通常在什么时候出现？', '光与影', '有光时', ['有光时', '完全黑暗时', '闭眼时']],
-  ],
-  life: [
-    ['过马路应该走哪里？', '🚦', '斑马线', ['斑马线', '花坛里', '车道中']], ['饭前要做什么？', '🧼', '洗手', ['洗手', '跑步', '睡觉']],
-    ['陌生人给的东西能随便吃吗？', '🍎', '不能', ['不能', '当然能', '只吃一半']], ['怎样保护眼睛？', '👀', '保持阅读距离', ['保持阅读距离', '躺着看', '关灯看']],
-    ['发现火灾应该拨打什么电话？', '🔥', '119', ['119', '120', '114']], ['乘车时应该怎么做？', '🚙', '系安全带', ['系安全带', '伸手出窗', '车内奔跑']],
-  ],
-  geography: [
-    ['太阳从哪边升起？', '🌅', '东方', ['东方', '西方', '北方']], ['我们生活的星球叫什么？', '🌍', '地球', ['地球', '月球', '火星']],
-    ['地图上通常用蓝色表示什么？', '🗺️', '水域', ['水域', '森林', '沙漠']], ['指南针的红色指针通常指向哪里？', '🧭', '北方', ['北方', '南方', '东方']],
-    ['中国的首都是哪里？', '🏙️', '北京', ['北京', '上海', '广州']], ['地球表面面积最大的是？', '🌊', '海洋', ['海洋', '陆地', '冰川']],
-  ],
-};
-
 export const subjects = [
-  { id: 'math', name: '数学', emoji: '🔢', desc: '计算 / 比较 / 填空', color: '#5cc7ff' },
-  { id: 'chinese', name: '语文', emoji: '📖', desc: '识字 / 表达', color: '#ff8fb2' },
-  { id: 'english', name: '英语', emoji: '🅰️', desc: '字母 / 单词', color: '#b28bff' },
-  { id: 'science', name: '科学', emoji: '🔬', desc: '动物 / 植物 / 天气', color: '#4fd6b5' },
-  { id: 'life', name: '生活', emoji: '🏠', desc: '安全 / 习惯 / 常识', color: '#ffc94a' },
-  { id: 'geography', name: '地理', emoji: '🌍', desc: '城市 / 地球 / 方位', color: '#49a8ef' },
+  { id: 'math', name: '数学', emoji: '🔢', desc: '计算 / 图形 / 应用', color: '#5cc7ff', grades: '一~六年级' },
+  { id: 'chinese', name: '语文', emoji: '📖', desc: '拼音 / 阅读 / 习作', color: '#ff8fb2', grades: '一~六年级' },
+  { id: 'english', name: '英语', emoji: '🅰️', desc: '启蒙 / 语法 / 阅读', color: '#b28bff', grades: '启蒙~六年级' },
+  { id: 'science', name: '科学', emoji: '🔬', desc: '生命 / 物质 / 宇宙', color: '#4fd6b5', grades: '一~六年级' },
+  { id: 'life', name: '生活', emoji: '🏠', desc: '安全 / 法治 / 文化', color: '#ffc94a', grades: '一~六年级' },
+  { id: 'geography', name: '地理', emoji: '🌍', desc: '地图 / 中国 / 世界', color: '#49a8ef', grades: '启蒙~六年级' },
 ];
 
 const numberOptions = (answer, count = 4) => {
@@ -59,15 +32,39 @@ const numberOptions = (answer, count = 4) => {
   return shuffle([...options]);
 };
 
+// 数学生成题同样打上知识点标签与讲解(与考纲对齐)
 const mathModes = (challenge) => {
-  const modes = ['add', 'subtract', 'compare', 'missing', 'sequence', 'shape'];
-  if (challenge >= 2) modes.push('word-add', 'odd-even', 'clock');
-  if (challenge >= 3) modes.push('multiply', 'money', 'word-subtract');
-  if (challenge >= 4) modes.push('division', 'mixed', 'order', 'half');
+  const modes = [
+    ['add', 'm-add20'], ['subtract', 'm-add20'], ['compare', 'm-count'],
+    ['missing', 'm-add20'], ['sequence', 'm-pattern'], ['shape', 'm-shape'],
+  ];
+  if (challenge >= 2) modes.push(['word-add', 'm-word'], ['odd-even', 'm-count'], ['clock', 'm-time']);
+  if (challenge >= 3) modes.push(['multiply', 'm-mult'], ['money', 'm-money'], ['word-subtract', 'm-word']);
+  if (challenge >= 4) modes.push(['division', 'm-div'], ['mixed', 'm-add100'], ['order', 'm-pattern'], ['half', 'm-div']);
   return modes;
 };
 
-const mathQuestion = (challenge, index, mode) => {
+const mathExplain = {
+  add: (a, b, answer) => `把两部分合起来用加法：${a}+${b}=${answer}。`,
+  subtract: (visual, answer) => `从总数里拿走一部分：${visual}=${answer}。`,
+  compare: (answer) => `比一比大小，大的数是 ${answer}。`,
+  missing: (answer) => `想加法算减法，想想几加几等于总数，答案是 ${answer}。`,
+  sequence: (answer) => `找到每次多几的规律，下一个是 ${answer}。`,
+  shape: (answer) => `数一数图形的边，答案是 ${answer} 条。`,
+  'word-add': (answer) => `合起来用加法计算，一共是 ${answer}。`,
+  'word-subtract': (answer) => `吃掉、用掉用减法，还剩 ${answer}。`,
+  'odd-even': (answer) => `个位是1、3、5、7、9的是奇数，是0、2、4、6、8的是偶数，所以是${answer}。`,
+  clock: (answer) => `时针走过几就是几时过一点，加上小时数就是 ${answer}。`,
+  multiply: (answer) => `背一背乘法口诀，答案是 ${answer}。`,
+  division: (answer) => `平均分用除法，想口诀算一算，每份是 ${answer}。`,
+  money: (answer) => `付的钱减去价格就是找回的钱：${answer} 元。`,
+  mixed: (answer) => `按从左到右的顺序一步一步算，答案是 ${answer}。`,
+  order: (answer) => `从小到大排一排，正确的是 ${answer}。`,
+  half: (answer) => `平均分成2份用除法，每人 ${answer} 颗。`,
+};
+
+const mathQuestion = (challenge, index, modeEntry) => {
+  const [mode, knowledge] = modeEntry;
   const max = Math.min(50, 6 + challenge * 5);
   const a = 1 + Math.floor(Math.random() * max);
   const b = 1 + Math.floor(Math.random() * Math.max(2, max - a + 1));
@@ -75,6 +72,7 @@ const mathQuestion = (challenge, index, mode) => {
   let visual = `${a} + ${b}`;
   let answer = a + b;
   let options;
+  let svg = null;
   let type = '加法能手';
 
   if (mode === 'subtract') {
@@ -104,6 +102,7 @@ const mathQuestion = (challenge, index, mode) => {
     ];
     const shape = shapes[(index + challenge) % shapes.length];
     prompt = `${shape.name}有几条边？`; visual = shape.icon; answer = shape.sides; type = '图形乐园';
+    svg = { kind: 'shape', sides: shape.sides };
   }
   if (mode === 'word-add') {
     const apples = 2 + Math.floor(Math.random() * 9);
@@ -127,7 +126,7 @@ const mathQuestion = (challenge, index, mode) => {
     const result = (hour + later - 1) % 12 + 1;
     prompt = `现在是 ${hour}:00，${later} 小时后是几点？`; visual = '🕐'; answer = `${result}:00`;
     options = shuffle([...new Set([result, (result % 12) + 1, ((result + 1) % 12) + 1, ((result + 9) % 12) + 1])].map((value) => `${value}:00`));
-    type = '认识时间';
+    type = '认识时间'; svg = { kind: 'clock', hour };
   }
   if (mode === 'multiply') {
     const x = 2 + Math.floor(Math.random() * Math.min(8, challenge + 2));
@@ -164,27 +163,103 @@ const mathQuestion = (challenge, index, mode) => {
     prompt = `${total} 颗糖平均分给两个人，每人几颗？`; visual = '🍬 ↔️ 🍬'; answer = total / 2; type = '平均分';
   }
 
-  return { id: `math-${challenge}-${mode}-${a}-${b}-${index}`, prompt, visual, answer, options: options || numberOptions(answer), type };
+  return {
+    id: `math-${challenge}-${mode}-${a}-${b}-${index}`,
+    prompt, visual, answer, options: options || numberOptions(answer), type,
+    knowledge, svg,
+    explain: mathExplain[mode]?.(a, b, answer) || `答案是 ${answer}，再想一想为什么吧！`,
+  };
 };
 
-export function buildQuestions(subjectId, challenge, count, dueIds = []) {
-  const generated = [];
+// 把课程库条目转成游戏题目
+const bankQuestion = (subjectId, item, index, isReview) => ({
+  id: `${subjectId}-${BANKS[subjectId].indexOf(item)}`,
+  prompt: item.p, visual: item.v, answer: item.a,
+  options: shuffle(item.o), type: isReview ? '记忆复习' : item.t,
+  knowledge: item.k, explain: item.e, review: isReview,
+});
+
+// 单元ID判定：math-3a-08 / yuwen-5b-02 / eng-4a-01 / sci-4b-01 / ddf-6a-04 / geo-10
+export const isUnitId = (id) => /^(math|yuwen|eng|sci|ddf)-\d[ab]-\d+$/.test(String(id)) || /^geo-\d+$/.test(String(id));
+
+// 自适应组卷:到期复习 > 薄弱知识点 > 未掌握新题 > 随机
+export function buildQuestions(subjectId, challenge, count, dueIds = [], adaptive = {}) {
+  const { weakKnowledge = [], masteredKeys = [] } = adaptive;
   if (subjectId === 'math') {
+    // 数学:生成题为主 + 穿插课程库静态题(单位换算/图形/时间等考试常考题)
+    const generated = [];
     const modes = shuffle(mathModes(challenge));
-    for (let i = 0; i < count; i += 1) generated.push(mathQuestion(challenge, i, modes[i % modes.length]));
-    return generated;
+    const staticCount = Math.min(BANKS.math.length, Math.max(1, Math.round(count / 3)));
+    const statics = shuffle(BANKS.math).slice(0, staticCount).map((item, i) =>
+      bankQuestion('math', item, i, dueIds.includes(`math-${BANKS.math.indexOf(item)}`)));
+    for (let i = 0; i < count - staticCount; i += 1) {
+      const entry = modes[i % modes.length];
+      generated.push(mathQuestion(challenge, i, entry));
+    }
+    const all = shuffle([...statics, ...generated]);
+    // 薄弱知识点优先
+    if (weakKnowledge.length) {
+      all.sort((x, y) => Number(weakKnowledge.includes(y.knowledge)) - Number(weakKnowledge.includes(x.knowledge)));
+    }
+    return all.slice(0, count);
   }
-  const pool = pools[subjectId];
-  const prioritized = [...pool].sort((a, b) => {
-    const aId = `${subjectId}-${pool.indexOf(a)}`; const bId = `${subjectId}-${pool.indexOf(b)}`;
-    return Number(dueIds.includes(bId)) - Number(dueIds.includes(aId));
-  });
+  const pool = BANKS[subjectId] || [];
+  if (!pool.length) return [];
+  const scoreOf = (item, idx) => {
+    const id = `${subjectId}-${idx}`;
+    let score = Math.random();
+    if (dueIds.includes(id)) score += 10;
+    if (weakKnowledge.includes(item.k)) score += 5;
+    if (masteredKeys.includes(id)) score -= 4;
+    return score;
+  };
+  const ranked = pool
+    .map((item, idx) => ({ item, idx, score: scoreOf(item, idx) }))
+    .sort((x, y) => y.score - x.score);
+  const picked = [];
   for (let i = 0; i < count; i += 1) {
-    const item = prioritized[i % prioritized.length] || randomFrom(pool);
-    const sourceIndex = pool.indexOf(item);
-    generated.push({ id: `${subjectId}-${sourceIndex}`, prompt: item[0], visual: item[1], answer: item[2], options: shuffle(item[3]), type: dueIds.includes(`${subjectId}-${sourceIndex}`) ? '记忆复习' : '趣味题库' });
+    const entry = ranked[i % ranked.length];
+    picked.push(bankQuestion(subjectId, entry.item, i, dueIds.includes(`${subjectId}-${entry.idx}`)));
   }
-  return generated;
+  return picked;
+}
+
+// AI 生成的题目做安全校验后转成游戏题目
+export function normalizeAIQuestions(subjectId, raw) {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .filter((item) => item && item.prompt && item.answer !== undefined && Array.isArray(item.options) && item.options.length >= 2)
+    .slice(0, 12)
+    .map((item, i) => {
+      const options = [...new Set([...item.options.map(String), String(item.answer)])].slice(0, 4);
+      while (options.length < 4) options.push(`选项${options.length + 1}`);
+      return {
+        id: `ai-${subjectId}-${Date.now()}-${i}`,
+        prompt: String(item.prompt).slice(0, 200),
+        visual: String(item.visual || '🤖').slice(0, 40),
+        answer: item.answer,
+        options: shuffle(options),
+        type: String(item.type || 'AI专属').slice(0, 12),
+        knowledge: String(item.knowledge || '综合').slice(0, 40),
+        explain: String(item.explain || '跟着AI老师的思路再想一想吧！').slice(0, 300),
+        aiMade: true,
+      };
+    });
+}
+
+export function buildMistakeQuestions(mistakes, count = 8) {
+  return shuffle(mistakes).slice(0, count).map((m, i) => {
+    let options = [];
+    try { options = JSON.parse(m.options || '[]'); } catch { options = []; }
+    if (!options.length) options = [m.answer];
+    return {
+      id: m.question_id, prompt: m.prompt, visual: m.visual || '📝',
+      answer: /^-?\d+$/.test(String(m.answer)) ? Number(m.answer) : m.answer,
+      options: shuffle(options), type: '错题重练',
+      knowledge: m.knowledge || '综合', explain: m.explain || '',
+      mistakeId: m.id,
+    };
+  });
 }
 
 export const difficulties = [
@@ -192,6 +267,13 @@ export const difficulties = [
   { name: '进阶', value: 3, label: '动脑升级', tip: '题型开始变丰富' },
   { name: '挑战', value: 5, label: '勇者专属', tip: '高阶题型等你征服' },
 ];
+
+export const GRADES = ['一年级', '二年级', '三年级', '四年级', '五年级', '六年级'];
+// 年级数字工具：'三年级上' -> 3
+export const gradeNumber = (grade) => {
+  const m = String(grade || '').match(/[一二三四五六]/);
+  return { '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6 }[m?.[0]] || 1;
+};
 
 export const relics = [
   { id: 'life-potion', icon: '🧪', name: '生命果汁', type: 'active', uses: 1, desc: '点击恢复 1 点生命（上限 4）' },
