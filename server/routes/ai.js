@@ -1,6 +1,7 @@
 // 路由：AI 网关配置 + 对话 / 学情分析 / 专属出题 / 模型探测
 import { Router } from 'express';
-import { db, getSetting, maskKey, setSetting, validId } from '../db.js';
+import { db, getSetting, jsonValue, maskKey, setSetting, validId } from '../db.js';
+import { runLearningAgent } from '../agent.js';
 import { chatCompletion, completeOnce, fetchModels, friendlyError, isChatModel, resolveLLM } from '../llm.js';
 import { KNOWLEDGE } from '../../src/curriculum.js';
 
@@ -82,6 +83,37 @@ router.post('/models/probe', async (_request, response) => {
 });
 
 const TUTOR_SYSTEM = '你是“奇趣知识岛”的AI老师,面向小学一二年级小朋友。用亲切、简短、鼓励的中文,多用emoji,一次只讲一个重点,讲完提一个小问题引导思考。遇到拼音/汉字/算式要读准确。绝不批评孩子,只鼓励进步。';
+
+router.post('/ai/agent', async (request, response) => {
+  const { profileId, messages, context } = request.body || {};
+  if (!validId(profileId)) return response.status(400).json({ error: '缺少档案' });
+  if (!db.prepare('SELECT 1 FROM profiles WHERE id = ?').get(profileId)) return response.status(404).json({ error: '档案不存在' });
+  if (!Array.isArray(messages) || !messages.length) return response.status(400).json({ error: '缺少对话内容' });
+  try {
+    const result = await runLearningAgent({ profileId, messages, context });
+    db.prepare('INSERT INTO agent_runs (profile_id, goal, steps, result) VALUES (?, ?, ?, ?)').run(
+      profileId, String(messages.at(-1)?.content || '').slice(0, 500), JSON.stringify(result.steps), String(result.reply).slice(0, 4000));
+    return response.json(result);
+  } catch (error) {
+    return response.status(502).json({ error: `学习 Agent 暂时不可用:${error.message}` });
+  }
+});
+
+router.get('/learning-tools', (request, response) => {
+  const { profileId } = request.query;
+  if (!validId(profileId)) return response.status(400).json({ error: '缺少档案' });
+  const tools = db.prepare(`SELECT id, name, kind, payload, created_at AS createdAt, updated_at AS updatedAt
+    FROM learning_tools WHERE profile_id = ? ORDER BY updated_at DESC LIMIT 50`).all(profileId)
+    .map((tool) => ({ ...tool, payload: jsonValue(tool.payload, {}) }));
+  return response.json(tools);
+});
+
+router.delete('/learning-tools/:id', (request, response) => {
+  const { profileId } = request.body || {};
+  if (!validId(profileId) || !validId(request.params.id)) return response.status(400).json({ error: '参数无效' });
+  db.prepare('DELETE FROM learning_tools WHERE id = ? AND profile_id = ?').run(request.params.id, profileId);
+  return response.status(204).end();
+});
 
 // 语音对话 / 文字对话共用：前端把语音转成文字后调这里，拿到回答再用语音播报 = speech to speech
 router.post('/ai/chat', async (request, response) => {

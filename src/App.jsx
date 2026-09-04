@@ -4,7 +4,7 @@ import Fireworks from './Fireworks';
 import { api } from './api';
 import { stopSpeak } from './voice';
 import {
-  buildMistakeQuestions, buildQuestions, difficulties, knowledgeName,
+  buildMistakeQuestions, buildQuestions, difficulties, knowledgeName, BANKS_COUNT,
   normalizeAIQuestions, subjects,
 } from './questions';
 import Setup from './components/Setup';
@@ -66,6 +66,9 @@ function App() {
   const [activity, setActivity] = useState({ streakDays: 0, totalDays: 0 });
   const [wrongStreak, setWrongStreak] = useState(0);
   const [lastRate, setLastRate] = useState(0);
+  const [nextPlanBusy, setNextPlanBusy] = useState(false);
+  const [intervention, setIntervention] = useState({ mode: 'standard', label: '独立思考', message: '' });
+  const q = questions[index];
 
   const refreshProfiles = () =>
     api.profiles().then((data) => { setProfiles(data); setProfile((p) => p ? data.find((d) => d.id === p.id) || data[0] : data[0]); }).catch(() => {});
@@ -91,8 +94,24 @@ function App() {
     if (screen === 'report') api.sessions(profile.id).then(setSessions).catch(() => {});
   }, [screen, profile?.id]);
 
+  useEffect(() => {
+    if (!profile || !q || answerState) return undefined;
+    let active = true;
+    setIntervention({ mode: 'standard', label: '独立思考', message: '' });
+    api.intervention({ profileId: profile.id, subjectId: subject.id, knowledge: q.knowledge || '综合', streak, wrongStreak, lives })
+      .then((data) => {
+        if (!active) return;
+        setIntervention(data);
+        if (data.message) setMessage(data.message);
+        if (data.autoEliminate) {
+          const candidate = q.options.find((option) => String(option) !== String(q.answer));
+          if (candidate) setHiddenOptions([candidate]);
+        }
+      }).catch(() => {});
+    return () => { active = false; };
+  }, [profile?.id, q?.id, subject.id, answerState, streak, wrongStreak, lives]);
+
   const title = useMemo(() => difficulties.find((item) => item.value === difficulty)?.name || '热身', [difficulty]);
-  const q = questions[index];
   const go = (next) => { audio.init(); setFireworks(false); stopSpeak(); setScreen(next); };
   const flash = (text) => { setNotice(text); window.clearTimeout(flash.t); flash.t = window.setTimeout(() => setNotice(''), 3200); };
 
@@ -137,6 +156,28 @@ function App() {
     } finally { setAiBusy(false); }
   };
 
+  const startReview = async (subjectId, count = 5) => {
+    if (!profile) return;
+    setAiBusy(true);
+    try {
+      const due = await api.dueReviews(profile.id, subjectId);
+      const list = due.slice(0, count).filter((item) => item.prompt && String(item.answer || '').length && Array.isArray(item.options) && item.options.length >= 2).map((item) => ({
+        id: item.questionId, prompt: item.prompt, visual: item.visual || '🧠', answer: item.answer,
+        options: item.options,
+        type: '到期复习', knowledge: item.knowledge || '综合', explain: item.explain || '回忆一下我们学过的方法吧！',
+      }));
+      if (!list.length) {
+        flash('暂时没有到期复习题，先做一组巩固练习吧！');
+        await startAIQuiz(subjectId, count);
+        return;
+      }
+      setSubject(subjectOf(subjectId)); setLevel(1); setActiveRelics([]); setRelicUses({});
+      setBestStreak(0); setStars(0); resetRun(list, '记忆复习');
+      flash(`今天有 ${list.length} 道到期复习题！`);
+    } catch (e) { flash(`复习题加载失败：${e.message}`); }
+    finally { setAiBusy(false); }
+  };
+
   const startMistakeQuiz = (pool) => {
     const open = (pool || mistakes).filter((m) => !m.mastered);
     if (!open.length) { flash('错题本空空的，太棒了！'); return; }
@@ -148,6 +189,16 @@ function App() {
 
   // 单元专练：AI 围绕指定单元出题
   const practiceUnit = (subjectId, unitId) => startAIQuiz(subjectId, 5, unitId);
+  const handleAgentAction = (action) => {
+    if (action?.type === 'start_practice') startAIQuiz(action.subjectId, action.count, action.focus);
+    if (action?.type === 'start_review') startReview(action.subjectId, action.count);
+    if (action?.type === 'open_mistakes') go('mistakes');
+    if (action?.type === 'open_galaxy') go('galaxy');
+    if (action?.type === 'celebrate') {
+      setFireworks(true); flash(action.message || '为你的认真思考喝彩！');
+      window.setTimeout(() => setFireworks(false), 3200);
+    }
+  };
 
   const hasRelic = (id) => activeRelics.some((item) => item.id === id);
   const useRelic = (relic) => {
@@ -228,7 +279,7 @@ function App() {
       api.saveAttempt({
         profileId: profile.id, questionId: q.id, subjectId: q.aiMade ? subject.id : (mistakes.find((m) => m.question_id === q.id)?.subject_id || subject.id),
         correct: isCorrect, knowledge: knowledgeName(subject.id, q.knowledge) !== '综合' ? q.knowledge : (q.knowledge || '综合'),
-        picked: value, answer: q.answer, prompt: q.prompt, visual: q.visual, options: q.options, explain: q.explain || '',
+        picked: value, answer: q.answer, prompt: q.prompt, visual: q.visual, options: q.options, explain: q.explain || '', intervention: intervention.mode,
       }).catch(() => {});
     }
     const nextCorrect = isCorrect ? correct + 1 : correct;
@@ -270,6 +321,19 @@ function App() {
       flash(`状态火热🔥难度自动升到「${difficulties.find((d) => d.value === nextDiff)?.name}」！`);
     }
     setLevel(nextLevel); startLevel(nextLevel, { nextLives: Math.min(4, lives) }, nextDiff);
+  };
+
+  const askAgentNext = async () => {
+    if (!profile || nextPlanBusy) return;
+    setNextPlanBusy(true);
+    try {
+      const detail = runDetails.slice(-10).map((item) => `${item.k}:${item.ok ? '对' : '错'}`).join('、');
+      const data = await api.aiAgent(profile.id, [{ role: 'user', content: `我刚完成${gameMode}，正确率${Math.round(lastRate * 100)}%，本局记录：${detail}。请复盘并安排最合适的下一步学习任务。` }], { grade: profile.grade, subject: subject.name, subjectId: subject.id });
+      setTutorMsgs((list) => [...list, { role: 'user', content: '请帮我安排下一步学习' }, { role: 'assistant', content: data.reply, steps: data.steps, model: data.model }]);
+      (data.actions || []).forEach((action) => handleAgentAction(action));
+      if (!(data.actions || []).length) go('tutor');
+    } catch (e) { flash(`AI安排失败：${e.message}`); }
+    finally { setNextPlanBusy(false); }
   };
 
   const askAbout = (question) => { setPendingAsk(question); go('tutor'); };
@@ -316,11 +380,11 @@ function App() {
     {notice && <div className="toast" role="status">{notice}</div>}
     {screen === 'start' && <section className="screen active"><div className="hero"><div className="hero-copy"><div className="eyebrow"><span>NEW</span> AI老师 + 语音对话 + 错题本</div><h1>登上知识岛<br /><em>玩着学，更聪明！</em></h1><p>人教版一二年级考纲全覆盖：数学计算、拼音识字、英语启蒙、科学与生活常识。AI跟踪每次作答，专属推题、语音陪练、错题归集。</p><div className="hero-actions"><button className="primary-btn" onClick={() => go('setup')}>开始探险 <span>➜</span></button><div className="mini-proof"><b>{BANKS_COUNT}+</b><span>考纲精题 + AI无限出题</span></div><div className="mini-proof"><b>🔥{activity.streakDays}天</b><span>连续学习打卡</span></div></div><div className="feature-row"><div><span className="feature-icon mint">🎙️</span><p><b>语音对话</b><small>开口说话，AI老师陪练</small></p></div><div><span className="feature-icon yellow">📕</span><p><b>错题本</b><small>自动归集，练到掌握</small></p></div><div><span className="feature-icon pink">🤖</span><p><b>智能教学</b><small>学情分析 + 记忆曲线</small></p></div></div></div><div className="island-scene"><div className="sun">☀</div><div className="orbit orbit-1">🎯</div><div className="orbit orbit-2">🧩</div><div className="orbit orbit-3">🎵</div><div className="mascot-card"><div className="mascot">🐶</div><div className="mascot-name">AI老师 · 威威</div></div><div className="island-base"><span>🌳</span><span>🏫</span><span>🌳</span></div></div></div></section>}
     {screen === 'setup' && <Setup subject={subject} setSubject={setSubject} difficulty={difficulty} setDifficulty={setDifficulty} questionCount={questionCount} setQuestionCount={setQuestionCount} profiles={profiles} profile={profile} setProfile={setProfile} refreshProfiles={refreshProfiles} title={title} memoryDue={memoryDue} weakMap={weakMap} aiBusy={aiBusy} onBack={() => go('start')} onStart={newRun} onAIStart={startAIQuiz} />}
-    {screen === 'game' && q && <GameView q={q} index={index} questionCount={questions.length} level={level} gameMode={gameMode} subject={subject} profileGrade={profile?.grade} lives={lives} streak={streak} stars={stars} answerState={answerState} message={message} activeRelics={activeRelics} relicUses={relicUses} passiveState={passiveState} armedEffects={armedEffects} hiddenOptions={hiddenOptions} revealedAnswer={revealedAnswer} onUseRelic={useRelic} onAnswer={answer} onBack={() => go('setup')} onRead={() => audio.speak(`${q.prompt}，${q.visual}，请选择正确答案`)} onReadExplain={() => audio.speak(q.explain || '再想一想吧')} onAskAI={() => askAbout({ ...q, picked: answerState?.value })} />}
-    {screen === 'result' && <Result correct={correct} count={questions.length} level={level} lives={lives} bestStreak={bestStreak} passed={lives > 0 && correct >= Math.ceil(questions.length * 0.6)} selectedRelic={selectedRelic} setSelectedRelic={setSelectedRelic} activeRelics={activeRelics} runWrongs={runWrongs} gameMode={gameMode} suggestion={suggestion} onSuggestion={(diff) => startNormalQuiz(subject, diff)} onContinue={continueRun} onChange={() => go('setup')} onMistakes={() => go('mistakes')} onReport={() => go('report')} onRead={(t) => audio.speak(t)} />}
+    {screen === 'game' && q && <GameView q={q} index={index} questionCount={questions.length} level={level} gameMode={gameMode} subject={subject} profileGrade={profile?.grade} lives={lives} streak={streak} stars={stars} answerState={answerState} message={message} intervention={intervention} activeRelics={activeRelics} relicUses={relicUses} passiveState={passiveState} armedEffects={armedEffects} hiddenOptions={hiddenOptions} revealedAnswer={revealedAnswer} onUseRelic={useRelic} onAnswer={answer} onBack={() => go('setup')} onRead={() => audio.speak(`${q.prompt}，${q.visual}，请选择正确答案`)} onReadExplain={() => audio.speak(q.explain || '再想一想吧')} onAskAI={() => askAbout({ ...q, picked: answerState?.value })} />}
+    {screen === 'result' && <Result correct={correct} count={questions.length} level={level} lives={lives} bestStreak={bestStreak} passed={lives > 0 && correct >= Math.ceil(questions.length * 0.6)} selectedRelic={selectedRelic} setSelectedRelic={setSelectedRelic} activeRelics={activeRelics} runWrongs={runWrongs} gameMode={gameMode} suggestion={suggestion} onSuggestion={(diff) => startNormalQuiz(subject, diff)} onContinue={continueRun} onChange={() => go('setup')} onMistakes={() => go('mistakes')} onReport={() => go('report')} onRead={(t) => audio.speak(t)} onAgentNext={askAgentNext} nextPlanBusy={nextPlanBusy} />}
     {screen === 'mistakes' && <MistakesView mistakes={mistakes} profile={profile} onPractice={startMistakeQuiz} onMastered={async (id, v) => { await api.markMastered(id, v); setMistakes((list) => list.map((m) => (m.id === id ? { ...m, mastered: v ? 1 : 0 } : m))); }} onRead={(t) => audio.speak(t)} />}
     {screen === 'report' && <ReportView profile={profile} mastery={mastery} sessions={sessions} mistakes={mistakes} analysis={analysis} analysisMeta={analysisMeta} aiBusy={aiBusy} weakMap={weakMap} onAnalyze={runAnalyze} onAIQuiz={startAIQuiz} onPracticeUnit={practiceUnit} onMistakePractice={() => startMistakeQuiz()} onNormalPractice={(sid) => startNormalQuiz(subjectOf(sid), difficulty)} onRead={(t) => audio.speak(t)} />}
-    {screen === 'tutor' && <TutorView profile={profile} subject={subject} profiles={profiles} mistakes={mistakes} msgs={tutorMsgs} setMsgs={setTutorMsgs} pendingAsk={pendingAsk} clearPendingAsk={() => setPendingAsk(null)} flash={flash} />}
+    {screen === 'tutor' && <TutorView profile={profile} subject={subject} profiles={profiles} mistakes={mistakes} msgs={tutorMsgs} setMsgs={setTutorMsgs} pendingAsk={pendingAsk} clearPendingAsk={() => setPendingAsk(null)} flash={flash} onAgentAction={handleAgentAction} />}
     {screen === 'galaxy' && <GalaxyView profile={profile} mastery={mastery} aiBusy={aiBusy} onPracticeUnit={practiceUnit} />}
     {screen === 'settings' && <SettingsView profile={profile} setProfile={setProfile} refreshProfiles={refreshProfiles} flash={flash} />}
     <Fireworks active={fireworks} />

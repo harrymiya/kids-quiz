@@ -15,18 +15,53 @@ router.get('/reviews/due', (request, response) => {
   const { profileId, subjectId } = request.query;
   if (!validId(profileId) || !subjectId) return response.status(400).json({ error: '缺少档案或学科' });
   const rows = db.prepare(`
-    SELECT question_id AS questionId, stage, correct_count AS correctCount,
-      wrong_count AS wrongCount, next_review_at AS nextReviewAt
-    FROM review_progress
-    WHERE profile_id = ? AND subject_id = ? AND next_review_at <= CURRENT_TIMESTAMP
-    ORDER BY wrong_count DESC, next_review_at ASC
-  `).all(profileId, subjectId);
+    SELECT rp.question_id AS questionId, rp.subject_id AS subjectId, rp.stage,
+      rp.correct_count AS correctCount, rp.wrong_count AS wrongCount, rp.next_review_at AS nextReviewAt,
+      a.knowledge, a.prompt, a.visual, a.answer, a.options, a.explain
+    FROM review_progress rp
+    LEFT JOIN attempts a ON a.id = (
+      SELECT latest.id FROM attempts latest
+      WHERE latest.profile_id = rp.profile_id AND latest.question_id = rp.question_id
+      ORDER BY latest.id DESC LIMIT 1
+    )
+    WHERE rp.profile_id = ? AND rp.subject_id = ? AND rp.next_review_at <= CURRENT_TIMESTAMP
+    ORDER BY rp.wrong_count DESC, rp.next_review_at ASC
+  `).all(profileId, subjectId).map((row) => {
+    try { return { ...row, options: JSON.parse(row.options || '[]') }; }
+    catch { return { ...row, options: [] }; }
+  });
   response.json(rows);
+});
+
+// 单题教学干预：只读取受控学习数据，不调用模型，保证答题过程低延迟。
+router.post('/learning/intervention', (request, response) => {
+  const { profileId, subjectId, knowledge, streak = 0, wrongStreak = 0, lives = 3 } = request.body;
+  if (!validId(profileId) || !KNOWLEDGE[subjectId] || !knowledge) {
+    return response.status(400).json({ error: '干预上下文不完整' });
+  }
+  const history = db.prepare(`SELECT COUNT(*) AS total, COALESCE(SUM(correct), 0) AS correct
+    FROM attempts WHERE profile_id = ? AND subject_id = ? AND knowledge = ?`)
+    .get(profileId, subjectId, String(knowledge).slice(0, 40));
+  const mistake = db.prepare(`SELECT COALESCE(SUM(wrong_count), 0) AS repeated
+    FROM mistakes WHERE profile_id = ? AND subject_id = ? AND knowledge = ? AND mastered = 0`)
+    .get(profileId, subjectId, String(knowledge).slice(0, 40));
+  const total = Number(history.total) || 0;
+  const accuracy = total ? Number(history.correct) / total : null;
+  const repeated = Number(mistake.repeated) || 0;
+  let strategy = { mode: 'standard', label: '独立思考', message: '先圈出题目里的关键信息，再选答案。', autoEliminate: false };
+  if (Number(wrongStreak) >= 2 || Number(lives) <= 1) {
+    strategy = { mode: 'recovery', label: '稳步找回', message: '先排除一个不可能的答案，再一步一步判断。', autoEliminate: true };
+  } else if ((total >= 3 && accuracy < 0.6) || repeated >= 2) {
+    strategy = { mode: 'guided', label: '重点引导', message: '这是正在巩固的知识点。读慢一点，先找关键词和已知条件。', autoEliminate: false };
+  } else if (total >= 5 && accuracy >= 0.85 && Number(streak) >= 2) {
+    strategy = { mode: 'challenge', label: '迁移挑战', message: '你已经比较熟练了。选答案前，在心里说出理由。', autoEliminate: false };
+  }
+  return response.json({ ...strategy, evidence: { total, accuracy, repeated } });
 });
 
 // 作答：记忆曲线推进 + 错题本自动归集
 router.post('/attempts', (request, response) => {
-  const { profileId, questionId, subjectId, correct, knowledge, picked, prompt, visual, options, explain } = request.body;
+  const { profileId, questionId, subjectId, correct, knowledge, picked, prompt, visual, options, explain, intervention } = request.body;
   if (!validId(profileId) || !questionId || !subjectId || typeof correct !== 'boolean') {
     return response.status(400).json({ error: '作答数据不完整' });
   }
@@ -46,8 +81,8 @@ router.post('/attempts', (request, response) => {
   };
   try {
     db.exec('BEGIN');
-    db.prepare('INSERT INTO attempts (profile_id, question_id, subject_id, correct, knowledge, picked, prompt, visual, options, explain) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
-      .run(profileId, questionId, subjectId, correct ? 1 : 0, k, snap.picked, snap.prompt, snap.visual, snap.options, snap.explain);
+    db.prepare('INSERT INTO attempts (profile_id, question_id, subject_id, correct, knowledge, picked, prompt, visual, options, explain, answer, intervention) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+      .run(profileId, questionId, subjectId, correct ? 1 : 0, k, snap.picked, snap.prompt, snap.visual, snap.options, snap.explain, String(request.body.answer ?? '').slice(0, 200), String(intervention || 'standard').slice(0, 20));
     db.prepare(`
       INSERT INTO review_progress (profile_id, question_id, subject_id, stage, correct_count, wrong_count, next_review_at, last_answered_at)
       VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)

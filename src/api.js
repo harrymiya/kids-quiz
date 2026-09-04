@@ -17,6 +17,7 @@ export const api = {
   createProfile: (body) => request('/profiles', { method: 'POST', body: JSON.stringify(body) }),
   updateProfile: (id, body) => request(`/profiles/${id}`, { method: 'PUT', body: JSON.stringify(body) }),
   dueReviews: (profileId, subjectId) => request(`/reviews/due?profileId=${profileId}&subjectId=${subjectId}`),
+  intervention: (body) => request('/learning/intervention', { method: 'POST', body: JSON.stringify(body) }),
   saveAttempt: (body) => request('/attempts', { method: 'POST', body: JSON.stringify(body) }),
   mistakes: (profileId, subjectId, mastered) => {
     let q = `/mistakes?profileId=${profileId}`;
@@ -36,6 +37,9 @@ export const api = {
   getSettings: () => request('/settings'),
   saveSettings: (body) => request('/settings', { method: 'PUT', body: JSON.stringify(body) }),
   resetSettings: () => request('/settings', { method: 'DELETE' }),
+  aiAgent: (profileId, messages, context) => request('/ai/agent', { method: 'POST', body: JSON.stringify({ profileId, messages, context }) }),
+  learningTools: (profileId) => request(`/learning-tools?profileId=${profileId}`),
+  deleteLearningTool: (profileId, id) => request(`/learning-tools/${id}`, { method: 'DELETE', body: JSON.stringify({ profileId }) }),
   aiChat: (messages, context) => request('/ai/chat', { method: 'POST', body: JSON.stringify({ messages, context }) }),
   aiAnalyze: (profileId) => request('/ai/analyze', { method: 'POST', body: JSON.stringify({ profileId }) }),
   aiQuestions: (profileId, subjectId, count, focus) => request('/ai/questions', { method: 'POST', body: JSON.stringify({ profileId, subjectId, count, focus }) }),

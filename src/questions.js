@@ -262,6 +262,8 @@ export function buildMistakeQuestions(mistakes, count = 8) {
   });
 }
 
+export const BANKS_COUNT = Object.values(BANKS).reduce((total, bank) => total + bank.length, 0);
+
 export const difficulties = [
   { name: '热身', value: 1, label: '轻松上手', tip: '从熟悉的知识开始' },
   { name: '进阶', value: 3, label: '动脑升级', tip: '题型开始变丰富' },

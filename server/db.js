@@ -74,6 +74,25 @@ db.exec(`
     value TEXT NOT NULL DEFAULT '',
     updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
   );
+  CREATE TABLE IF NOT EXISTS learning_tools (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    profile_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    kind TEXT NOT NULL,
+    payload TEXT NOT NULL DEFAULT '{}',
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (profile_id) REFERENCES profiles(id) ON DELETE CASCADE
+  );
+  CREATE TABLE IF NOT EXISTS agent_runs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    profile_id INTEGER,
+    goal TEXT NOT NULL,
+    steps TEXT NOT NULL DEFAULT '[]',
+    result TEXT NOT NULL DEFAULT '',
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (profile_id) REFERENCES profiles(id) ON DELETE SET NULL
+  );
 `);
 
 const columnsOf = (table) => db.prepare(`PRAGMA table_info(${table})`).all().map((c) => c.name);
@@ -87,6 +106,8 @@ ensureColumn('attempts', 'prompt', "TEXT NOT NULL DEFAULT ''");
 ensureColumn('attempts', 'visual', "TEXT NOT NULL DEFAULT ''");
 ensureColumn('attempts', 'options', "TEXT NOT NULL DEFAULT '[]'");
 ensureColumn('attempts', 'explain', "TEXT NOT NULL DEFAULT ''");
+ensureColumn('attempts', 'answer', "TEXT NOT NULL DEFAULT ''");
+ensureColumn('attempts', 'intervention', "TEXT NOT NULL DEFAULT 'standard'");
 
 if (db.prepare('SELECT COUNT(*) AS count FROM profiles').get().count === 0) {
   db.prepare("INSERT INTO profiles (name, avatar, age, grade) VALUES (?, ?, ?, ?)").run('小探险家', '🧒', 7, '一年级');
@@ -105,3 +126,7 @@ export const validId = (value) => Number.isInteger(Number(value)) && Number(valu
 export const GRADES = ['一年级', '二年级', '三年级', '四年级', '五年级', '六年级'];
 export const normalizeGrade = (value, fallback = '一年级') => (GRADES.includes(value) ? value : fallback);
 export const rootDir = root;
+
+export const jsonValue = (value, fallback) => {
+  try { return JSON.parse(value); } catch { return fallback; }
+};
