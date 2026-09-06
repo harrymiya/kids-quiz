@@ -15,9 +15,8 @@
     "@vitejs/plugin-react": "latest",
     "concurrently": "latest",
     "express": "latest",
-    "vite": "latest",
     "react": "latest",
-    "react-dom": "latest"
-  },
-  "devDependencies": {}
+    "react-dom": "latest",
+    "vite": "latest"
+  }
 }

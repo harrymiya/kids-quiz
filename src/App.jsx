@@ -58,6 +58,8 @@ function App() {
   const [armedEffects, setArmedEffects] = useState({});
   const [fireworks, setFireworks] = useState(false);
   const [muted, setMuted] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(Boolean(document.fullscreenElement));
+  const [recentQuestionIds, setRecentQuestionIds] = useState([]);
   const [runDetails, setRunDetails] = useState([]);
   const [runWrongs, setRunWrongs] = useState([]);
   // AI 老师
@@ -111,6 +113,21 @@ function App() {
     return () => { active = false; };
   }, [profile?.id, q?.id, subject.id, answerState, streak, wrongStreak, lives]);
 
+  useEffect(() => {
+    const syncFullscreen = () => setIsFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener('fullscreenchange', syncFullscreen);
+    return () => document.removeEventListener('fullscreenchange', syncFullscreen);
+  }, []);
+
+  const toggleFullscreen = async () => {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else await document.documentElement.requestFullscreen();
+    } catch (error) {
+      flash(`全屏不可用：${error.message}`);
+    }
+  };
+
   const title = useMemo(() => difficulties.find((item) => item.value === difficulty)?.name || '热身', [difficulty]);
   const go = (next) => { audio.init(); setFireworks(false); stopSpeak(); setScreen(next); };
   const flash = (text) => { setNotice(text); window.clearTimeout(flash.t); flash.t = window.setTimeout(() => setNotice(''), 3200); };
@@ -125,7 +142,12 @@ function App() {
   const startLevel = (runLevel, { newAdventure = false, nextLives = lives } = {}, diff = difficulty, subj = subject) => {
     audio.init(); audio.click();
     const created = buildQuestions(subj.id, runLevel + diff - 1, questionCount,
-      memoryDue.map((item) => item.questionId), { weakKnowledge: weakMap[subj.id] || [] });
+      memoryDue.map((item) => item.questionId), {
+        weakKnowledge: weakMap[subj.id] || [], grade: profile?.grade, recentQuestionIds,
+      });
+    if (subj.id === 'geography') {
+      setRecentQuestionIds((items) => [...items, ...created.map((item) => item.id)].slice(-40));
+    }
     setSubject(subj); setDifficulty(diff); setWrongStreak(0);
     if (newAdventure) { setLevel(1); setActiveRelics([]); setRelicUses({}); setBestStreak(0); setStars(0); resetRun(created, '闯关'); setLives(3); return; }
     setQuestions(created); setIndex(0); setCorrect(0); setLives(nextLives); setStreak(0);
@@ -375,7 +397,10 @@ function App() {
           {icon}<small>{label}</small>{id === 'mistakes' && openMistakes > 0 && <i className="nav-badge">{openMistakes > 99 ? '99+' : openMistakes}</i>}
         </button>))}
       </nav>
-      <button className="round-control" onClick={() => { const next = !muted; setMuted(next); audio.muted = next; }} aria-label="声音开关">{muted ? '🔇' : '🔊'}</button>
+      <div className="header-actions">
+        <button className="round-control" onClick={toggleFullscreen} aria-label={isFullscreen ? '退出全屏' : '进入全屏'} title={isFullscreen ? '退出全屏' : '进入全屏'}>{isFullscreen ? '⛶' : '⛶'}</button>
+        <button className="round-control" onClick={() => { const next = !muted; setMuted(next); audio.muted = next; }} aria-label="声音开关" title="声音开关">{muted ? '🔇' : '🔊'}</button>
+      </div>
     </header>
     {notice && <div className="toast" role="status">{notice}</div>}
     {screen === 'start' && <section className="screen active"><div className="hero"><div className="hero-copy"><div className="eyebrow"><span>NEW</span> AI老师 + 语音对话 + 错题本</div><h1>登上知识岛<br /><em>玩着学，更聪明！</em></h1><p>人教版一二年级考纲全覆盖：数学计算、拼音识字、英语启蒙、科学与生活常识。AI跟踪每次作答，专属推题、语音陪练、错题归集。</p><div className="hero-actions"><button className="primary-btn" onClick={() => go('setup')}>开始探险 <span>➜</span></button><div className="mini-proof"><b>{BANKS_COUNT}+</b><span>考纲精题 + AI无限出题</span></div><div className="mini-proof"><b>🔥{activity.streakDays}天</b><span>连续学习打卡</span></div></div><div className="feature-row"><div><span className="feature-icon mint">🎙️</span><p><b>语音对话</b><small>开口说话，AI老师陪练</small></p></div><div><span className="feature-icon yellow">📕</span><p><b>错题本</b><small>自动归集，练到掌握</small></p></div><div><span className="feature-icon pink">🤖</span><p><b>智能教学</b><small>学情分析 + 记忆曲线</small></p></div></div></div><div className="island-scene"><div className="sun">☀</div><div className="orbit orbit-1">🎯</div><div className="orbit orbit-2">🧩</div><div className="orbit orbit-3">🎵</div><div className="mascot-card"><div className="mascot">🐶</div><div className="mascot-name">AI老师 · 威威</div></div><div className="island-base"><span>🌳</span><span>🏫</span><span>🌳</span></div></div></div></section>}

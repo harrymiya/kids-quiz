@@ -182,9 +182,18 @@ const bankQuestion = (subjectId, item, index, isReview) => ({
 // 单元ID判定：math-3a-08 / yuwen-5b-02 / eng-4a-01 / sci-4b-01 / ddf-6a-04 / geo-10
 export const isUnitId = (id) => /^(math|yuwen|eng|sci|ddf)-\d[ab]-\d+$/.test(String(id)) || /^geo-\d+$/.test(String(id));
 
+const gradeMatches = (label, grade) => {
+  if (!grade || !label || label === '综合') return true;
+  const value = gradeNumber(grade);
+  if (label.includes('启蒙')) return value <= 2;
+  const digits = [...label].map((char) => ({ 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6 }[char])).filter(Boolean);
+  if (!digits.length) return true;
+  return value >= Math.min(...digits) && value <= Math.max(...digits);
+};
+
 // 自适应组卷:到期复习 > 薄弱知识点 > 未掌握新题 > 随机
 export function buildQuestions(subjectId, challenge, count, dueIds = [], adaptive = {}) {
-  const { weakKnowledge = [], masteredKeys = [] } = adaptive;
+  const { weakKnowledge = [], masteredKeys = [], grade = '', recentQuestionIds = [] } = adaptive;
   if (subjectId === 'math') {
     // 数学:生成题为主 + 穿插课程库静态题(单位换算/图形/时间等考试常考题)
     const generated = [];
@@ -205,23 +214,33 @@ export function buildQuestions(subjectId, challenge, count, dueIds = [], adaptiv
   }
   const pool = BANKS[subjectId] || [];
   if (!pool.length) return [];
+  const gradePool = subjectId === 'geography'
+    ? pool.filter((item) => gradeMatches(unitGrade(subjectId, item.k), grade))
+    : pool;
+  const recent = new Set(recentQuestionIds);
+  const freshGradePool = gradePool.filter((item) => !recent.has(`${subjectId}-${pool.indexOf(item)}`));
+  // 有足够新题时不重复近期题；新题不足时才回补旧题，避免题量较大时组卷失败。
+  const usablePool = freshGradePool.length >= Math.min(count, 8)
+    ? freshGradePool
+    : (gradePool.length >= Math.min(count, 8) ? gradePool : pool);
   const scoreOf = (item, idx) => {
     const id = `${subjectId}-${idx}`;
     let score = Math.random();
     if (dueIds.includes(id)) score += 10;
     if (weakKnowledge.includes(item.k)) score += 5;
     if (masteredKeys.includes(id)) score -= 4;
+    if (recent.has(id)) score -= 8;
     return score;
   };
-  const ranked = pool
-    .map((item, idx) => ({ item, idx, score: scoreOf(item, idx) }))
+  const ranked = usablePool
+    .map((item) => ({ item, idx: pool.indexOf(item), score: scoreOf(item, pool.indexOf(item)) }))
     .sort((x, y) => y.score - x.score);
-  const picked = [];
-  for (let i = 0; i < count; i += 1) {
-    const entry = ranked[i % ranked.length];
-    picked.push(bankQuestion(subjectId, entry.item, i, dueIds.includes(`${subjectId}-${entry.idx}`)));
+  const picked = ranked.slice(0, Math.min(count, ranked.length));
+  // 题库不足时才允许循环；正常情况下每道题在本局只出现一次。
+  for (let i = picked.length; i < count; i += 1) {
+    picked.push(ranked[i % ranked.length]);
   }
-  return picked;
+  return picked.map((entry, i) => bankQuestion(subjectId, entry.item, i, dueIds.includes(`${subjectId}-${entry.idx}`)));
 }
 
 // AI 生成的题目做安全校验后转成游戏题目
