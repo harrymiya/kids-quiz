@@ -3,99 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>眼睛+记忆 15–24′ — Agent实战培训</title>
+<title>让它看懂 · Agent 实战培训</title>
 <link rel="stylesheet" href="../style.css">
 <script src="../theme.js"></script>
 </head>
 <body>
 <aside class="side-nav" aria-label="章节导航">
-  <a class="side-brand" href="../index.html"><span class="mark">⚡</span><span>Agent 实战</span></a>
-  <div class="side-section">培训内容</div>
-  <a class="side-link" href="../index.html"><span class="side-num">⌂</span><span>总览</span></a>
-  <a class="side-link" href="00-open.html"><span class="side-num">00</span><span>开场</span></a>
-  <a class="side-link" href="01-base.html"><span class="side-num">01</span><span>基座</span></a>
-  <a class="side-link active" aria-current="page" href="02-eyes.html"><span class="side-num">02</span><span>眼睛 + 记忆</span></a>
-  <a class="side-link" href="03-hands.html"><span class="side-num">03</span><span>手脚 + Coding</span></a>
-  <a class="side-link" href="04-evolve.html"><span class="side-num">04</span><span>进化</span></a>
-  <a class="side-link" href="05-roles.html"><span class="side-num">05</span><span>岗位实战</span></a>
-  <a class="side-link" href="06-tools.html"><span class="side-num">06</span><span>工具选型</span></a>
-  <a class="side-link" href="07-action.html"><span class="side-num">07</span><span>行动</span></a>
+  <a class="side-brand" href="../index.html"><span class="mark">⚡</span><span>Agent 实战</span></a><div class="side-section">培训内容</div>
+  <a class="side-link" href="../index.html"><span class="side-num">⌂</span><span>总览</span></a><a class="side-link" href="00-open.html"><span class="side-num">01</span><span>先讲观点</span></a><a class="side-link" href="01-base.html"><span class="side-num">02</span><span>Agent 是什么</span></a><a class="side-link active" aria-current="page" href="02-eyes.html"><span class="side-num">03</span><span>让它看懂</span></a><a class="side-link" href="03-hands.html"><span class="side-num">04</span><span>让它做事</span></a><a class="side-link" href="04-evolve.html"><span class="side-num">05</span><span>丝滑使用的要件</span></a><a class="side-link" href="05-roles.html"><span class="side-num">06</span><span>四类岗位</span></a><a class="side-link" href="06-agents.html"><span class="side-num">07</span><span>主流 Agent</span></a><a class="side-link" href="06-tools.html"><span class="side-num">08</span><span>工具与边界</span></a><a class="side-link" href="07-action.html"><span class="side-num">09</span><span>明天开始</span></a>
 </aside>
-<div class="topbar">
-  <div class="logo">⚡ Agent 实战</div>
-  <div class="crumb">眼睛+记忆 15–24′ · <b>把背景说清楚</b></div>
-  <div class="spacer"></div>
-  <button class="theme-toggle" id="themeToggle">☀️</button>
-  <a href="01-base.html">← 基座</a>
-  <a class="next" href="03-hands.html">手脚 →</a>
-</div>
+<div class="topbar"><div class="logo">⚡ Agent 实战</div><div class="crumb">让它看懂 · <b>任务描述模板</b></div><div class="spacer"></div><button class="theme-toggle" id="themeToggle" title="切换主题">☀️</button><a href="01-base.html">← Agent 是什么</a><a class="next" href="03-hands.html">让它做事 →</a></div>
 <div class="wrap">
-<div class="hero">
-  <div class="kicker">15–24′ · 通识 2/4 · 第 2+3 章压缩到 9 分钟</div>
-  <h1>把背景说清楚，<span class="accent">结果更容易检查</span></h1>
-  <p class="desc">上下文会影响 Agent 能看到什么、怎么做判断。记忆和 RAG 用来补充资料。这一页看几个实用做法：Skills、状态栏和检索。</p>
-  <div class="meta"><span class="badge b-brand">⏱ 9分钟</span><span class="badge b-cyan">KV Cache 3 个注意点</span><span class="badge b-green">Skills · 状态栏 · RAG</span></div>
-</div>
+<div class="hero"><div class="kicker">12–18′ · 先把信息给对</div><h1>结果好不好，<span class="accent">一半取决于你怎么说</span></h1><p class="desc">Agent 不是读心术。任务越清楚、背景越准确、验收标准越明确，结果越容易直接使用。</p><div class="meta"><span class="badge b-brand">通用模板</span><span class="badge b-cyan">少而准的背景</span><span class="badge b-green">先草稿后交付</span></div></div>
 
-<h3>上下文：一次决策时能用到的信息</h3>
+<h3>一个任务，交代五件事</h3>
 <div class="tablewrap"><table>
-<tr><th>块</th><th>类型</th><th>例子</th></tr>
-<tr><td>系统提示词</td><td>静态前缀（别动）</td><td>身份/权限/行为准则 = 岗位说明书</td></tr>
-<tr><td>工具定义</td><td>静态前缀（别动）</td><td>有哪些工具、参数格式</td></tr>
-<tr><td>用户消息 / 模型回复 / 工具结果</td><td>动态轨迹（可追加压缩）</td><td>需求 + 思考 + 工具回包</td></tr>
+<tr><th>要说什么</th><th>一句话说明</th><th>例子</th></tr>
+<tr><td><b>目标</b></td><td>最后要得到什么结果</td><td>生成一份客户可读的排错报告</td></tr>
+<tr><td><b>背景</b></td><td>现在发生了什么，给哪些材料</td><td>项目版本、日志、已有处理记录</td></tr>
+<tr><td><b>约束</b></td><td>什么不能做，时间和格式是什么</td><td>不改生产数据，控制在一页内</td></tr>
+<tr><td><b>输出</b></td><td>希望它按什么结构返回</td><td>现象 / 原因 / 步骤 / 验证结果</td></tr>
+<tr><td><b>验收</b></td><td>怎样判断完成了</td><td>命令可执行、数据有来源、测试通过</td></tr>
 </table></div>
-<div class="note"><span class="lab">🔒 KV Cache 3 个注意点</span>① <b>系统词和工具定义尽量稳定</b>，频繁改动会影响缓存效果；② <b>时间戳等动态信息放在末尾</b>，不要混进系统词，以免增加延迟和费用；③ <b>使用标准 API 格式</b>，不要自己拼接 "USER:…ASSISTANT:…"，减少解析和兼容问题。</div>
 
-<h3>三个实用做法（可以直接参考）</h3>
+<div class="formula"><span class="tag">通用任务模板</span>请以【角色】完成【目标】。已知【背景】；遵守【约束】；输出【格式】；完成前用【验收标准】检查，并列出不确定的地方。</div>
+
+<h3>同一个模板，适配四类工作</h3>
 <div class="grid">
-  <div class="tile grad"><div class="t"><i>📚</i> Skills · 按需提供知识</div><p><b>三层：目录（简短说明）→ SKILL.md（按需读取）→ 子文档</b>。目录写清“什么时候用”，不用把全部内容一次塞进去。</p></div>
-  <div class="tile grad2"><div class="t"><i>📊</i> 状态栏 · 记录进度</div><p>模型不一定记得已经做过什么。<b>可以用代码维护 TODO、时间和环境摘要，放在上下文末尾</b>，减少重复操作，也方便排查问题。</p></div>
-  <div class="tile grad3"><div class="t"><i>🗜</i> 压缩 · 保持重点清楚</div><p>除了内容超长，也要注意重要信息被埋在大量记录里。可以按摘要、删噪声、归档、必要时查看全文的顺序处理。相对独立的任务也可以单独运行，主流程只接收结论。</p></div>
+  <div class="tile grad"><div class="t"><i>🧑‍💻</i> 开发</div><p>“先阅读项目结构，定位这个 Bug，提出方案，修改后运行相关测试，并说明改了什么。”</p></div>
+  <div class="tile grad2"><div class="t"><i>🚚</i> 交付</div><p>“根据这段日志和版本信息，整理排查步骤。每一步写出验证命令，不要直接修改生产环境。”</p></div>
+  <div class="tile grad3"><div class="t"><i>📋</i> 项目管理</div><p>“把会议记录整理为任务、责任人、截止时间和风险；不确定的信息单独标记。”</p></div>
+  <div class="tile grad5"><div class="t"><i>💼</i> 咨询</div><p>“基于提供的资料完成行业分析，标注来源，区分事实、推断和待核实信息。”</p></div>
 </div>
 
-<div class="fig">
-<svg viewBox="0 0 900 210" xmlns="http://www.w3.org/2000/svg" font-family="sans-serif">
-<rect x="0" y="0" width="900" height="210" fill="#161b22"/>
-<text x="200" y="28" text-anchor="middle" fill="#f85149" font-size="12" font-weight="700">❌ 信息较少的请求</text>
-<text x="700" y="28" text-anchor="middle" fill="#3fb950" font-size="12" font-weight="700">✅ 信息比较完整的请求</text>
-<rect x="40" y="45" width="320" height="140" rx="10" fill="#161b22" stroke="#f85149"/>
-<text x="200" y="75" text-anchor="middle" fill="#9db1c7" font-size="11">“帮我写个接口文档”</text>
-<text x="200" y="100" text-anchor="middle" fill="#6e7f96" font-size="10">背景少 → 可能遗漏字段</text>
-<text x="200" y="125" text-anchor="middle" fill="#6e7f96" font-size="10">例子少 → 风格可能不一致</text>
-<text x="200" y="150" text-anchor="middle" fill="#6e7f96" font-size="10">约束少 → 需要更多人工确认</text>
-<rect x="540" y="45" width="320" height="140" rx="10" fill="#161b22" stroke="#3fb950"/>
-<text x="700" y="72" text-anchor="middle" fill="#e6edf3" font-size="10.5">角色+背景+约束+例子+工具</text>
-<text x="700" y="95" text-anchor="middle" fill="#39c5cf" font-size="10">Skill 按需调 · 状态栏同步进度</text>
-<text x="700" y="118" text-anchor="middle" fill="#3fb950" font-size="10">检索接知识库 · 输出可验证</text>
-<text x="700" y="145" text-anchor="middle" fill="#d29922" font-size="10">“先查库→按模板写→跑校验→交diff”</text>
-</svg>
-<div class="cap"><b>图 · 简短需求 vs 信息比较完整的请求</b>可以优先补充五类信息：<b>角色 / 背景 / 约束 / 例子 / 工具</b>。</div>
-</div>
+<div class="note"><span class="lab">📚 知识库和记忆</span>重复使用的规范、案例和操作步骤可以沉淀成文档或 Skill；保留来源和版本，<b>不要把过期内容当成事实</b>，也不要一次塞进所有资料。</div>
 
-<h3>记忆 + RAG：一句话简介（先了解概念）</h3>
-<div class="tablewrap"><table>
-<tr><th>概念</th><th>一句话用人结论</th></tr>
-<tr><td>个体记忆 vs 群体知识库</td><td>前者记“你”（偏好/历史），后者记“大家”（文档/规范）。技术同源，都怕过期冲突。</td></tr>
-<tr><td>存三层 / 怎么存 / 存什么</td><td>放哪：会话流水 / 跨会话档案 / 任务状态。怎么存：小事便签、少量关键用结构化卡、大多混合。存啥：事件/知识/流程三类。</td></tr>
-<tr><td>RAG 流程</td><td>检索片段→放进上下文→生成。块大小和重叠比例可以先用经验值，再按实际数据调试。</td></tr>
-<tr><td>稠密 vs 稀疏 vs 混合</td><td>向量检索擅长找相近含义，关键词检索更容易命中特定词。<b>可以先从混合检索和重排开始</b>，再根据效果调整。</td></tr>
-<tr><td>RAPTOR vs GraphRAG</td><td>树（层层摘要，适合问全貌）vs 图（实体关系，适合多跳）。普通团队：<b>自然语言存正文+结构化元数据做索引</b>就够。</td></tr>
-<tr><td>Agentic RAG / 上下文感知检索</td><td>前者=检索也走 ReAct（不够再查）；后者=入库时补前缀（“该公司”→ACME 2025Q2）。都为解决“搜得到、用不上”。</td></tr>
-<tr><td>更新与安全</td><td>更新走 <b>PR 流水线（提-审-合，异源互审）</b>；检索内容=不可信输入，<b>不能直触发高风险动作</b>。</td></tr>
-</table></div>
-<div class="note ok"><span class="lab">✅ 提示注入一句话</span>外部内容可能混入额外指令；如果 Agent 接了执行工具，风险会相应增加。可以从三点防范：<b>标明来源 / 做角色隔离 / 依靠结构化校验</b>。</div>
-
-<details><summary>🎙 提示词（点击展开，9′）</summary><div class="inner">
-<p><b>开篇（1′）：</b>“可以把 Agent 看成一个需要持续补充信息的新同事。文档、背景和例子越清楚，它越容易按要求做；只靠口头说明，结果就更需要人工检查。上下文会影响它能做什么。”</p>
-<p><b>这部分的几个注意点（2′）：</b>“简单记成三点：<b>稳定的内容尽量保持稳定，动态信息放末尾，接口使用标准格式</b>。这样做通常更利于缓存，也更少遇到兼容问题。”</p>
-<p><b>三个做法（3′）：</b>“<b>Skills</b> 像按需查的小册子，目录先放着，用到再读全文；<b>状态栏</b>记录 TODO、报错和环境，帮助减少重复操作；<b>压缩</b>不只是为了省长度，也要让重点更容易找到。任务彼此独立时，可以分开处理，主流程只接收结果。”</p>
-<p><b>RAG（3′）：</b>“记忆可以分成‘记你’和‘记大家’。检索方案可以先从混合检索和重排试起；树状结构更适合看总览，图结构更适合查关系。知识库更新要经过提交和审核，检索回来的内容也应该先当作不可信输入，不要直接触发高风险操作。”</p>
-</div></details>
-
-<div class="footer-nav">
-  <a href="01-base.html"><span class="dir">上一页</span>← 基座</a>
-  <a class="next" href="03-hands.html"><span class="dir">下一页 24–33′</span>手脚+Coding →</a>
-</div>
+<details><summary>🎙 讲师提示（约 4 分钟）</summary><div class="inner"><p>“很多人觉得 Agent 不好用，第一反应是换模型。实际更常见的问题，是目标、背景和验收标准没有说清楚。”</p><p>“大家记住五项：目标、背景、约束、输出、验收。资料不需要越多越好，要少而准确。”</p><p>“这个模板可以直接套到四种岗位。接下来再加上工具，Agent 才能从写答案变成真正做事。”</p></div></details>
+<div class="footer-nav"><a href="01-base.html"><span class="dir">上一页 5–12′</span>Agent 是什么</a><a class="next" href="03-hands.html"><span class="dir">下一页 18–25′</span>让它做事 · 工具、Coding 与安全 →</a></div>
 </div>
 </body>
 </html>

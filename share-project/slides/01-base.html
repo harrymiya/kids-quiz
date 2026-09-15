@@ -3,119 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>基座 3–15′ · 一张图看懂Agent — Agent实战培训</title>
+<title>Agent 是什么 · Agent 实战培训</title>
 <link rel="stylesheet" href="../style.css">
 <script src="../theme.js"></script>
 </head>
 <body>
 <aside class="side-nav" aria-label="章节导航">
-  <a class="side-brand" href="../index.html"><span class="mark">⚡</span><span>Agent 实战</span></a>
-  <div class="side-section">培训内容</div>
-  <a class="side-link" href="../index.html"><span class="side-num">⌂</span><span>总览</span></a>
-  <a class="side-link" href="00-open.html"><span class="side-num">00</span><span>开场</span></a>
-  <a class="side-link active" aria-current="page" href="01-base.html"><span class="side-num">01</span><span>基座</span></a>
-  <a class="side-link" href="02-eyes.html"><span class="side-num">02</span><span>眼睛 + 记忆</span></a>
-  <a class="side-link" href="03-hands.html"><span class="side-num">03</span><span>手脚 + Coding</span></a>
-  <a class="side-link" href="04-evolve.html"><span class="side-num">04</span><span>进化</span></a>
-  <a class="side-link" href="05-roles.html"><span class="side-num">05</span><span>岗位实战</span></a>
-  <a class="side-link" href="06-tools.html"><span class="side-num">06</span><span>工具选型</span></a>
-  <a class="side-link" href="07-action.html"><span class="side-num">07</span><span>行动</span></a>
+  <a class="side-brand" href="../index.html"><span class="mark">⚡</span><span>Agent 实战</span></a><div class="side-section">培训内容</div>
+  <a class="side-link" href="../index.html"><span class="side-num">⌂</span><span>总览</span></a><a class="side-link" href="00-open.html"><span class="side-num">01</span><span>先讲观点</span></a><a class="side-link active" aria-current="page" href="01-base.html"><span class="side-num">02</span><span>Agent 是什么</span></a><a class="side-link" href="02-eyes.html"><span class="side-num">03</span><span>让它看懂</span></a><a class="side-link" href="03-hands.html"><span class="side-num">04</span><span>让它做事</span></a><a class="side-link" href="04-evolve.html"><span class="side-num">05</span><span>丝滑使用的要件</span></a><a class="side-link" href="05-roles.html"><span class="side-num">06</span><span>四类岗位</span></a><a class="side-link" href="06-agents.html"><span class="side-num">07</span><span>主流 Agent</span></a><a class="side-link" href="06-tools.html"><span class="side-num">08</span><span>工具与边界</span></a><a class="side-link" href="07-action.html"><span class="side-num">09</span><span>明天开始</span></a>
 </aside>
-<div class="topbar">
-  <div class="logo">⚡ Agent 实战</div>
-  <div class="crumb">基座 3–15′ · <b>一张图看懂 Agent</b></div>
-  <div class="spacer"></div>
-  <button class="theme-toggle" id="themeToggle">☀️</button>
-  <a href="00-open.html">← 开场</a>
-  <a class="next" href="02-eyes.html">眼睛 →</a>
-</div>
+<div class="topbar"><div class="logo">⚡ Agent 实战</div><div class="crumb">Agent 是什么 · <b>最小工作方法</b></div><div class="spacer"></div><button class="theme-toggle" id="themeToggle" title="切换主题">☀️</button><a href="00-open.html">← 观点</a><a class="next" href="02-eyes.html">让它看懂 →</a></div>
 <div class="wrap">
-<div class="hero">
-  <div class="kicker">3–15′ · 通识 1/4 · 全书第 1 章压缩到 12 分钟</div>
-  <h1>Agent = <span class="accent">大脑 + 眼睛 + 手脚</span></h1>
-  <p class="desc">这一页先用一张图说明 Agent 怎么工作，再看两种常见路线和几项设计方法。后面的内容都会从这里展开。</p>
-  <div class="meta"><span class="badge b-brand">公式</span><span class="badge b-cyan">ReAct 想→做→看</span><span class="badge b-green">Harness 五件套</span><span class="badge b-purple">5 模式</span></div>
-</div>
+<div class="hero"><div class="kicker">5–12′ · 只讲够用的概念</div><h1>Agent 不只是聊天，<span class="accent">它要完成任务</span></h1><p class="desc">把 Agent 理解成一个可以接收目标、调用工具、根据结果继续行动，并把结果交回给人的工作伙伴。</p><div class="meta"><span class="badge b-brand">最小公式</span><span class="badge b-cyan">目标 → 行动 → 反馈</span><span class="badge b-green">人负责验收</span></div></div>
 
-<div class="formula"><span class="tag">一个便于理解的公式 · 学术上可对应 Policy + 观察空间 + 动作空间</span>Agent = LLM + 上下文 + 工具</div>
+<div class="formula"><span class="tag">先记住这一句</span>Agent = 模型 + 上下文 + 工具 + 验证</div>
 <div class="tablewrap"><table>
-<tr><th>直觉</th><th>对应</th><th>人话</th><th>你用时要干嘛</th></tr>
-<tr><td>🧠 大脑</td><td>LLM / 策略</td><td>下一步做什么</td><td>选够用的模型就行，别纠结参数</td></tr>
-<tr><td>👁 眼睛</td><td>上下文 / 观察+历史</td><td>它能看到多少背景</td><td><b>把背景说清楚</b>：需求、约束和例子通常会让结果更容易使用</td></tr>
-<tr><td>🖐 手脚</td><td>工具 / 动作接口</td><td>它能动哪些系统</td><td><b>接好工具</b>：文件/搜索/代码/知识库</td></tr>
+<tr><th>部分</th><th>它负责什么</th><th>我们要做什么</th></tr>
+<tr><td><b>🧠 模型</b></td><td>理解问题、生成方案、决定下一步</td><td>复杂任务用能力足够的模型</td></tr>
+<tr><td><b>👁 上下文</b></td><td>知道背景、目标、限制和已有材料</td><td>把任务说清楚，资料给准确</td></tr>
+<tr><td><b>🖐 工具</b></td><td>读文件、搜资料、跑代码、调用系统</td><td>给它合适的权限和工具</td></tr>
+<tr><td><b>✅ 验证</b></td><td>确认结果是否正确、可用、可交付</td><td>测试、对照原文、人工确认</td></tr>
 </table></div>
-<p style="color:var(--muted)">Agent 之外还有 <b>Environment（环境）</b>：文件、网页、API、客户现场系统。Agent 每一步都在“看环境 → 想 → 动环境”。</p>
 
-<h3>ReAct：想 → 做 → 看，按结果继续下一步</h3>
-<div class="flow">
-  <div class="step"><span class="sn">THINK</span><b>💭 思考</b><small>拆解 + 选工具</small></div><div class="arrow">→</div>
-  <div class="step"><span class="sn">ACT</span><b>🔧 行动</b><small>调工具干活</small></div><div class="arrow">→</div>
-  <div class="step"><span class="sn">OBSERVE</span><b>👀 观察</b><small>结果回填，再想</small></div><div class="arrow">→</div>
-  <div class="step"><span class="sn">EXIT</span><b>✅ 完成</b><small>返回结果、无需继续，或达到停止条件</small></div>
-</div>
-<div class="fig">
-<svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" font-family="sans-serif">
-<rect x="0" y="0" width="900" height="200" fill="#161b22"/>
-<rect x="30" y="50" width="170" height="100" rx="10" fill="#1c2333" stroke="#9db1c7"/>
-<text x="115" y="80" text-anchor="middle" fill="#e6edf3" font-size="12" font-weight="700">你：汇总 Q1 收入</text>
-<text x="115" y="102" text-anchor="middle" fill="#6e7f96" font-size="10">含 EUR/GBP/JPY</text>
-<text x="115" y="124" text-anchor="middle" fill="#6e7f96" font-size="10">一句话需求</text>
-<rect x="250" y="50" width="170" height="100" rx="10" fill="#161b22" stroke="#58a6ff"/>
-<text x="335" y="80" text-anchor="middle" fill="#79c0ff" font-size="12" font-weight="700">想：要先转汇率</text>
-<text x="335" y="102" text-anchor="middle" fill="#f0883e" font-size="11">做：调 3 次换算工具</text>
-<text x="335" y="124" text-anchor="middle" fill="#6e7f96" font-size="10">可并行，别串行等</text>
-<rect x="470" y="50" width="170" height="100" rx="10" fill="#161b22" stroke="#3fb950"/>
-<text x="555" y="80" text-anchor="middle" fill="#3fb950" font-size="12" font-weight="700">看：拿到 USD 结果</text>
-<text x="555" y="102" text-anchor="middle" fill="#79c0ff" font-size="11">再想：调计算器求和</text>
-<text x="555" y="124" text-anchor="middle" fill="#6e7f96" font-size="10">结果回填上下文</text>
-<rect x="690" y="50" width="180" height="100" rx="10" fill="#1c2333" stroke="#39c5cf"/>
-<text x="780" y="80" text-anchor="middle" fill="#39c5cf" font-size="12" font-weight="700">结果：$9,602,895.73</text>
-<text x="780" y="102" text-anchor="middle" fill="#9db1c7" font-size="10">静态前缀 + 完整轨迹</text>
-<text x="780" y="124" text-anchor="middle" fill="#6e7f96" font-size="10">过程更容易追踪</text>
-</svg>
-<div class="cap"><b>图 · ReAct 轨迹（书中多币种例子简化）</b>要点：<b>上下文 = 静态前缀（身份+工具说明）+ 动态轨迹（每轮追加）</b>。工具说明或历史记录不完整时，结果可能不稳定，也更容易重复操作。</div>
-</div>
+<h3>一个 Agent 任务的最小闭环</h3>
+<div class="flow"><div class="step"><span class="sn">01</span><b>给目标</b><small>我想完成什么</small></div><div class="arrow">→</div><div class="step"><span class="sn">02</span><b>拆任务</b><small>先做什么、后做什么</small></div><div class="arrow">→</div><div class="step"><span class="sn">03</span><b>调工具</b><small>读、搜、写、跑</small></div><div class="arrow">→</div><div class="step"><span class="sn">04</span><b>看结果</b><small>验证并继续或交付</small></div></div>
 
-<h3>Harness：模型之外，还需要一套配合机制</h3>
-<div class="formula"><span class="tag">生产形态</span>Agent = Model + Harness</div>
-<div class="tablewrap"><table>
-<tr><th>Harness</th><th>人话</th><th>你用时的动作</th></tr>
-<tr><td>上下文管理</td><td>信息给够</td><td>写好提示词 + 接知识库（下页讲）</td></tr>
-<tr><td>工具接口</td><td>手脚好使</td><td>命名直观、参数给例子（第 24′ 讲）</td></tr>
-<tr><td>约束</td><td>默认不敢乱动</td><td>删库/付款/发邮件默认要你确认</td></tr>
-<tr><td>验证</td><td>用可复现的检查确认结果</td><td>让 linter、测试和类型检查提供依据，不只看模型自己的描述</td></tr>
-<tr><td>纠正</td><td>出错后按规则处理</td><td>设置重试和停止条件，必要时转人工</td></tr>
-</table></div>
-<div class="note"><span class="lab">💡 一个实际提醒</span>模型能力会覆盖一部分原来的流程，但业务规则、权限和验收标准仍需要有人负责。把这些内容整理进 Harness，有助于让流程更稳定。</div>
+<div class="grid"><div class="tile grad"><div class="t"><i>💬</i> 普通聊天</div><p>问一个问题，得到一段回答。适合解释、改写、总结。</p></div><div class="tile grad5"><div class="t"><i>🤖</i> Agent 工作</div><p>给一个目标，让它分步执行。适合排错、写代码、调研和整理材料。</p></div><div class="tile grad3"><div class="t"><i>🧑‍⚖️</i> 人的角色</div><p><b>给目标、给边界、验结果、做决策。</b>Agent 是能力放大器，不是责任替代品。</p></div></div>
 
-<h3>两条路线：工作流 vs 自主 Agent</h3>
-<div class="grid">
-  <div class="tile grad2"><div class="t"><i>🛤</i> 工作流（确定性）</div><p>步骤相对固定：核身份→查航班→付款。<b>适合报销、发版和巡检</b>等规则清楚的任务。很多团队可以先从这里开始。</p></div>
-  <div class="tile grad5"><div class="t"><i>🧭</i> 自主 Agent（动态）</div><p>只给目标，由它根据情况选择工具。<b>适合调研、排错和写代码</b>等变化较多的任务，但要配停止条件和权限限制。</p></div>
-</div>
-<div class="note warn"><span class="lab">⚠️ 三层限制</span><b>上下文层</b>（能看什么：防注入、脱敏）→ <b>执行层</b>（能干什么：分级授权、沙盒、人工确认）→ <b>数据层</b>（最终能改成什么样：行级权限、校验器）。可以先从提示词和工作流做起，再根据风险考虑是否引入更高自主度。</div>
+<div class="note"><span class="lab">🧭 第一性思维</span>不要从“这个工具有什么功能”出发，要从“我要完成什么结果”出发，再倒推：需要哪些输入、步骤、工具和验收标准。</div>
 
-<h3>5 个设计方法（一句话版，便于理解）</h3>
-<div class="grid">
-  <div class="tile grad"><div class="t">🅿️↔️🆁 提议—审核</div><p>写和审尽量分开，避免自己写完又自己确认。审核重点看产物和验证结果。</p></div>
-  <div class="tile grad2"><div class="t">📇 渐进披露</div><p>先给目录，用到再加载详情，减少一次性放入的信息量。</p></div>
-  <div class="tile grad3"><div class="t">📜 只增不改</div><p>记录只追加不改历史。可回放、可审计、缓存友好。</p></div>
-  <div class="tile grad4"><div class="t">🎯 边界+保留集</div><p>改完既测“该改的”，也测“不该动的”，避免修好一处又影响另一处。</p></div>
-  <div class="tile grad5"><div class="t">🧩 最小 diff 可回滚</div><p>尽量小步修改，每步都能单独撤销，方便定位问题和恢复。</p></div>
-</div>
-
-<details><summary>🎙 提示词（点击展开，12′，每块约 2–3′）</summary><div class="inner">
-<p><b>公式（2′）：</b>“可以把 Agent 先理解成<b>大脑、眼睛和手脚</b>。大脑是模型，眼睛是上下文，手脚是工具。模型之外，背景和工具也会影响结果，所以不一定要先换模型，也可以先把这两部分整理好。”</p>
-<p><b>ReAct（3′）：</b>“它通常是<b>想→做→看→再决定下一步</b>。比如算多币种收入，它先确认需要汇率，再调用换算工具，最后用计算器求和。上下文越完整，重复操作的可能性通常越低；工具说明和历史记录不完整时，就要多留意结果。”</p>
-<p><b>Harness（3′）：</b>“模型负责生成和选择，Harness 负责把信息、工具、权限、验证和纠错这些环节组织起来。实际使用中，很多问题不一定来自模型本身，也可能是权限没配、没有验收步骤，或者出错后一直重试。把这些规则提前写清楚，会更容易管理。”</p>
-<p><b>路线+限制（2′）：</b>“步骤比较固定的任务，可以先用<b>工作流</b>；变化比较多的任务，再考虑<b>自主 Agent</b>。n8n、Dify 等工具也可以按需要组合。自主程度越高，越要把它能看什么、能做什么和需要谁确认写清楚。”</p>
-<p><b>五种方法（2′）：</b>“最后记住五个方向：<b>写审分开、按需加载、记录只追加、改动前后都测试、小步修改可回退</b>。后面几页还会用到。”</p>
-</div></details>
-
-<div class="footer-nav">
-  <a href="00-open.html"><span class="dir">上一页</span>← 开场</a>
-  <a class="next" href="02-eyes.html"><span class="dir">下一页 15–24′</span>眼睛+记忆 →</a>
-</div>
+<details><summary>🎙 讲师提示（约 5 分钟）</summary><div class="inner"><p>“大家先不要把 Agent 想得太复杂。它就是一个能接目标、用工具、看反馈、继续完成任务的数字同事。”</p><p>“公式里最容易被忽略的是上下文和验证。模型再强，如果不知道背景，结果也可能不对；结果再像样，如果没有验证，也不能直接交付。”</p><p>“接下来我们分别讲两件事：怎样把背景给清楚，以及怎样让它真正动手做事。”</p></div></details>
+<div class="footer-nav"><a href="00-open.html"><span class="dir">上一页 0–5′</span>先讲观点</a><a class="next" href="02-eyes.html"><span class="dir">下一页 12–18′</span>让它看懂 · 任务描述模板 →</a></div>
 </div>
 </body>
 </html>

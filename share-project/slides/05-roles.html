@@ -3,71 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>岗位实战 40–45′ — Agent实战培训</title>
+<title>四类岗位 · Agent 实战培训</title>
 <link rel="stylesheet" href="../style.css">
 <script src="../theme.js"></script>
 </head>
 <body>
 <aside class="side-nav" aria-label="章节导航">
-  <a class="side-brand" href="../index.html"><span class="mark">⚡</span><span>Agent 实战</span></a>
-  <div class="side-section">培训内容</div>
-  <a class="side-link" href="../index.html"><span class="side-num">⌂</span><span>总览</span></a>
-  <a class="side-link" href="00-open.html"><span class="side-num">00</span><span>开场</span></a>
-  <a class="side-link" href="01-base.html"><span class="side-num">01</span><span>基座</span></a>
-  <a class="side-link" href="02-eyes.html"><span class="side-num">02</span><span>眼睛 + 记忆</span></a>
-  <a class="side-link" href="03-hands.html"><span class="side-num">03</span><span>手脚 + Coding</span></a>
-  <a class="side-link" href="04-evolve.html"><span class="side-num">04</span><span>进化</span></a>
-  <a class="side-link active" aria-current="page" href="05-roles.html"><span class="side-num">05</span><span>岗位实战</span></a>
-  <a class="side-link" href="06-tools.html"><span class="side-num">06</span><span>工具选型</span></a>
-  <a class="side-link" href="07-action.html"><span class="side-num">07</span><span>行动</span></a>
+  <a class="side-brand" href="../index.html"><span class="mark">⚡</span><span>Agent 实战</span></a><div class="side-section">培训内容</div>
+  <a class="side-link" href="../index.html"><span class="side-num">⌂</span><span>总览</span></a><a class="side-link" href="00-open.html"><span class="side-num">01</span><span>先讲观点</span></a><a class="side-link" href="01-base.html"><span class="side-num">02</span><span>Agent 是什么</span></a><a class="side-link" href="02-eyes.html"><span class="side-num">03</span><span>让它看懂</span></a><a class="side-link" href="03-hands.html"><span class="side-num">04</span><span>让它做事</span></a><a class="side-link" href="04-evolve.html"><span class="side-num">05</span><span>丝滑使用的要件</span></a><a class="side-link active" aria-current="page" href="05-roles.html"><span class="side-num">06</span><span>四类岗位</span></a><a class="side-link" href="06-agents.html"><span class="side-num">07</span><span>主流 Agent</span></a><a class="side-link" href="06-tools.html"><span class="side-num">08</span><span>工具与边界</span></a><a class="side-link" href="07-action.html"><span class="side-num">09</span><span>明天开始</span></a>
 </aside>
-<div class="topbar">
-  <div class="logo">⚡ Agent 实战</div>
-  <div class="crumb">岗位 40–45′ · <b>四岗实战清单</b></div>
-  <div class="spacer"></div>
-  <button class="theme-toggle" id="themeToggle">☀️</button>
-  <a href="04-evolve.html">← 进化</a>
-  <a class="next" href="06-tools.html">选型 →</a>
-</div>
+<div class="topbar"><div class="logo">⚡ Agent 实战</div><div class="crumb">四类岗位 · <b>从一个小任务开始</b></div><div class="spacer"></div><button class="theme-toggle" id="themeToggle" title="切换主题">☀️</button><a href="04-evolve.html">← 四个要件</a><a class="next" href="06-agents.html">主流 Agent →</a></div>
 <div class="wrap">
-<div class="hero">
-  <div class="kicker">40–45′ · 实战 1/3 · 观点4：从小环节开始尝试</div>
-  <h1>先别急着问能不能替代，<span class="accent">看看哪一小段适合试试</span></h1>
-  <p class="desc">可以先按四步来：<b>拆解 → 提供背景 → 验证 → 留下做法</b>。不同岗位需要不同调整，下面按岗位给出可以先试的任务、第一周动作和需要人工把关的部分。</p>
-  <div class="meta"><span class="badge b-brand">⏱ 5分钟</span><span class="badge b-green">观点4落地</span><span class="badge b-cyan">抄走即用</span></div>
-</div>
-
-<div class="formula"><span class="tag">一个通用的尝试顺序</span>拆解环节 → 提供背景 → 验证结果 → 留下可复用的做法</div>
+<div class="hero"><div class="kicker">30–42′ · 实战重点</div><h1>Agent 能做什么，<span class="accent">看你的任务怎么切</span></h1><p class="desc">不要一开始就讨论“替代谁”。先找一段目标清楚、范围不大、结果可检查的工作，跑通一次闭环。</p><div class="meta"><span class="badge b-brand">开发</span><span class="badge b-cyan">交付</span><span class="badge b-green">项目管理</span><span class="badge b-yellow">咨询</span></div></div>
 
 <div class="tablewrap"><table>
-<tr><th>岗位</th><th>可以先试着交给工具（高频×可验证）</th><th>第一周动作（≤2h）</th><th>暂时保留人工确认</th></tr>
-<tr><td><b>🧑‍💻 开发</b></td><td>单测补齐 / 注释文档 / 重构小函数 / 报错初排 / CR 初筛 / 正则脚本</td><td>建 <code>CLAUDE.md</code>（构建/测试/规范）+ 跑一次“补单测→跑测试→交 diff”闭环</td><td>跨模块大重构直合入；私钥/生产数据进公有模型</td></tr>
-<tr><td><b>🚚 交付/实施</b></td><td>环境巡检脚本 / 日志初筛 / 配置比对 / 操作手册初稿 / 工单分类 / 回归验证</td><td>沉淀 1 个 Skill：常见报错→排查步骤→验证命令；现场备离线包+热点</td><td>生产删改直执行；客户敏感拓扑外发（脱敏或本地模型）</td></tr>
-<tr><td><b>📋 项目经理</b></td><td>会议纪要→TODO / 周报初稿 / 计划拆解 / 风险清单 / 汇报 PPT 大纲 / 工时汇总</td><td>把例会录音转“纪要+TODO+责任人+截止”，再由人确认；逐步整理历史风险进知识库</td><td>对外承诺/报价/处罚直发；只让它做判断不做背书</td></tr>
-<tr><td><b>💼 咨询/售前</b></td><td>行业速研 / 竞品对比表 / 方案标书初稿 / Demo 脚本 / 话术演练 / 客户问答库</td><td>跑一次 Deep Research：行业→痛点→我方映射→异议处理，再由你逐项检查和修改</td><td>最终报价/合规承诺；未核验数据不要直接贴进标书（标来源并交叉验证）</td></tr>
+<tr><th>岗位</th><th>今天就能试的任务</th><th>Agent 负责</th><th>人负责确认</th></tr>
+<tr><td><b>🧑‍💻 开发</b></td><td>修小 Bug、补单测、写脚本、写文档、初步排错</td><td>读代码、提出方案、修改、运行测试</td><td>设计取舍、代码审查、合并发布</td></tr>
+<tr><td><b>🚚 交付</b></td><td>日志初筛、配置比对、巡检脚本、操作手册</td><td>整理现象、排查步骤和验证命令</td><td>生产操作、客户数据、最终结论</td></tr>
+<tr><td><b>📋 项目管理</b></td><td>会议纪要、周报、计划拆解、风险清单</td><td>提取任务、责任人、截止时间和风险</td><td>优先级、对外承诺、资源和决策</td></tr>
+<tr><td><b>💼 咨询</b></td><td>行业调研、竞品比较、方案初稿、问答演练</td><td>搜集整理、归纳分析、生成初稿</td><td>事实核验、客户判断、最终表达</td></tr>
 </table></div>
 
-<div class="grid">
-  <div class="tile grad"><div class="t"><i>✂️</i> 拆解模板（一句话）</div><p>优先选择<b>目标清楚、能自动检查、范围不大的任务</b>。任务太大就分开：先调研，再列大纲，再逐节处理，最后合稿。</p></div>
-  <div class="tile grad2"><div class="t"><i>📦</i> 提供背景的五项内容</div><p><b>角色、背景、约束、例子和工具</b>。缺哪项补哪项，少量贴切的例子通常比大量无关例子更有帮助。</p></div>
-  <div class="tile grad3"><div class="t"><i>✅</i> 检查结果</div><p>以<b>测试、实际运行和交叉来源</b>为主要依据。代码跑测试，文档对原文，数据写清来源。</p></div>
-  <div class="tile grad4"><div class="t"><i>💾</i> 留下可复用的做法</div><p>把好用的 prompt 整理进 Skill，把常见问答放进知识库，把问题用例留下来继续测试。可以每周抽一点时间复盘。</p></div>
-</div>
+<h3>四步通用打法</h3>
+<div class="flow"><div class="step"><span class="sn">01</span><b>拆小</b><small>选一个边界清楚的环节</small></div><div class="arrow">→</div><div class="step"><span class="sn">02</span><b>给背景</b><small>目标、资料、约束、格式</small></div><div class="arrow">→</div><div class="step"><span class="sn">03</span><b>跑一遍</b><small>让 Agent 产出草稿或结果</small></div><div class="arrow">→</div><div class="step"><span class="sn">04</span><b>留方法</b><small>记录提示词、步骤和用例</small></div></div>
 
-<div class="note warn"><span class="lab">观点5 · 环境各有不同</span>各团队和客户现场的网络、权限、数据规定都不一样，确实很难用一套方案解决。可以在允许的范围内先做小规模验证：联网条件好就用现有服务，受限时再考虑本地模型、离线知识库或脚本。也可以同步和公司协调支持，不必等所有条件都准备好才开始。</div>
+<div class="grid"><div class="tile grad"><div class="t"><i>✅</i> 适合先试</div><p>高频、重复、目标清楚、结果可以测试或对照的工作。</p></div><div class="tile grad5"><div class="t"><i>⏸</i> 先做草稿</div><p>需要经验判断、涉及客户沟通或事实核验的工作。</p></div><div class="tile grad4"><div class="t"><i>🚫</i> 不要直交给它</div><p>不可逆生产操作、最终报价承诺、未经核验的敏感信息处理。</p></div></div>
 
-<details><summary>🎙 提示词（点击展开，5′，每岗约 1′）</summary><div class="inner">
-<p><b>总纲（1′）：</b>“不用一开始就讨论替代谁，可以先找一小段目标清楚、结果能检查的工作。按‘拆开、补背景、检查、留下做法’这四步试一遍。如果半小时左右能看清结果，通常比较适合拿来做第一次尝试。”</p>
-<p><b>开发（1′）：</b>“可以先从补单测、写文档和报错初排开始，这些任务目标比较清楚，也方便跑测试。第一周可以把项目的构建、测试和规范写进 <b>CLAUDE.md</b>，再跑一次完整流程。大范围重构和密钥等敏感内容，先保留人工把关。”</p>
-<p><b>交付（1′）：</b>“巡检、日志初筛和配置比对都可以先试。把常见报错、排查步骤和验证命令整理成一个 Skill，现场准备离线资料和热点。生产环境的删改操作要保留人工确认，客户拓扑先做脱敏。”</p>
-<p><b>PM（1′）：</b>“可以把会议录音整理成纪要、TODO、责任人和截止时间，再由你确认后发出。历史风险也可以逐步整理进知识库。对外承诺和报价仍由人确认，工具先负责草稿。”</p>
-<p><b>咨询（1′）：</b>“行业速研、竞品表、标书初稿和演练都可以试。第一周跑一次 Deep Research 全流程，但要逐项核对内容。数据写清来源并交叉验证，不要把未经确认的信息直接放进标书。”</p>
-</div></details>
+<div class="note ok"><span class="lab">🎯 现场互动</span>请大家现在选一个自己岗位里的小任务，写下三件事：<b>目标是什么、结果怎么验、哪些动作必须由人确认。</b></div>
 
-<div class="footer-nav">
-  <a href="04-evolve.html"><span class="dir">上一页</span>← 进化浅讲</a>
-  <a class="next" href="06-tools.html"><span class="dir">下一页 45–48′</span>工具选型 →</a>
-</div>
+<details><summary>🎙 讲师提示（约 8–10 分钟）</summary><div class="inner"><p>“四类岗位都不用从大项目开始。开发从补测试和排错开始，交付从日志和配置开始，项目管理从会议纪要开始，咨询从资料整理和方案初稿开始。”</p><p>“共用的方法只有四步：拆小、给背景、跑一遍、留方法。第一次不要追求全自动，先看它能不能稳定帮你完成一段工作。”</p><p>“请大家选一个自己的任务。任务不需要现在就解决，但要能说清楚目标、验收标准和人工边界。”</p></div></details>
+<div class="footer-nav"><a href="04-evolve.html"><span class="dir">上一页 25–30′</span>丝滑使用的四个要件</a><a class="next" href="06-agents.html"><span class="dir">下一页 42–46′</span>主流 Agent · 先看定位再选工具 →</a></div>
 </div>
 </body>
 </html>
