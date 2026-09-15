@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工具选型 45–48′ — Agent实战培训</title>
+<link rel="stylesheet" href="../style.css">
+<script src="../theme.js"></script>
+</head>
+<body>
+<aside class="side-nav" aria-label="章节导航">
+  <a class="side-brand" href="../index.html"><span class="mark">⚡</span><span>Agent 实战</span></a>
+  <div class="side-section">培训内容</div>
+  <a class="side-link" href="../index.html"><span class="side-num">⌂</span><span>总览</span></a>
+  <a class="side-link" href="00-open.html"><span class="side-num">00</span><span>开场</span></a>
+  <a class="side-link" href="01-base.html"><span class="side-num">01</span><span>基座</span></a>
+  <a class="side-link" href="02-eyes.html"><span class="side-num">02</span><span>眼睛 + 记忆</span></a>
+  <a class="side-link" href="03-hands.html"><span class="side-num">03</span><span>手脚 + Coding</span></a>
+  <a class="side-link" href="04-evolve.html"><span class="side-num">04</span><span>进化</span></a>
+  <a class="side-link" href="05-roles.html"><span class="side-num">05</span><span>岗位实战</span></a>
+  <a class="side-link active" aria-current="page" href="06-tools.html"><span class="side-num">06</span><span>工具选型</span></a>
+  <a class="side-link" href="07-action.html"><span class="side-num">07</span><span>行动</span></a>
+</aside>
+<div class="topbar">
+  <div class="logo">⚡ Agent 实战</div>
+  <div class="crumb">选型 45–48′ · <b>按任务选择</b></div>
+  <div class="spacer"></div>
+  <button class="theme-toggle" id="themeToggle">☀️</button>
+  <a href="05-roles.html">← 岗位</a>
+  <a class="next" href="07-action.html">行动 →</a>
+</div>
+<div class="wrap">
+<div class="hero">
+  <div class="kicker">45–48′ · 实战 2/3 · 不做排名，先看匹配程度</div>
+  <h1>先看任务，<span class="accent">再选合适的工具</span></h1>
+  <p class="desc">可以按“写代码、做研究、现场支持、项目管理”来比较。先选一个主用方案，再准备一个备用方案；客户现场受限时，再切换到本地或离线做法。</p>
+  <div class="meta"><span class="badge b-brand">⏱ 3分钟</span><span class="badge b-cyan">模型中立</span><span class="badge b-yellow">现场有 B 档</span></div>
+</div>
+
+<div class="tablewrap"><table>
+<tr><th>活</th><th>主力（联网优先）</th><th>岗位适配</th><th>受限 B 档</th></tr>
+<tr><td><b>💬 问答/写作/总结</b></td><td>ChatGPT / Claude / Gemini / DeepSeek / Kimi / 豆包 / 通义</td><td>全员。PM 周报、咨询框架、交付手册初稿</td><td>本地 Ollama + Dify 知识库；纯离线模板</td></tr>
+<tr><td><b>🧑‍💻 写代码/改 Bug</b></td><td><b>Claude Code / Codex</b> / Cursor / Copilot / 通义灵码</td><td>开发主力；交付写脚本；咨询打 Demo</td><td>开源模型本地跑 + <code>grep/glob</code> 不联网；只做只读分析</td></tr>
+<tr><td><b>🔍 深度研究</b></td><td>Gemini / ChatGPT Deep Research / Manus</td><td>咨询竞品/行业；PM 风险扫描；售前方案</td><td>内网文档 + 手工提纲 + 单模型分段查</td></tr>
+<tr><td><b>📚 团队知识库问答</b></td><td>Dify / Coze·扣子 / n8n 编排</td><td>交付现场问答；PM 规范库；新人 onboarding</td><td>OpenViking式 Markdown 库 + Git + 本地检索</td></tr>
+<tr><td><b>🖱 Computer Use</b></td><td>OpenClaw / Manus / 系统级 Agent</td><td>交付巡检录屏回放；跨系统填单</td><td>录屏+脚本固化，不直连生产</td></tr>
+<tr><td><b>🎙 语音/异步触达</b></td><td>模型语音 + IM 网关（企微/钉/WhatsApp）</td><td>PM 提醒；交付告警；咨询回访</td><td>短信/电话人工兜底，Agent 只做草稿</td></tr>
+</table></div>
+
+<div class="note"><span class="lab">🧭 选型三问</span>① <b>结果好检查吗？</b>（容易检查→可以考虑交给工具；不容易检查→先让它做草稿） ② <b>数据能出域吗？</b>（不能→本地或备用方案） ③ <b>要不要长期复用？</b>（要→优先选择能接知识库或 Skill 的方案）。付费工具是否值得使用，要结合任务效果、预算、公司规定和数据要求来判断，建议先小范围试用并记录结果。</div>
+
+<div class="fig">
+<svg viewBox="0 0 900 180" xmlns="http://www.w3.org/2000/svg" font-family="sans-serif">
+<rect x="0" y="0" width="900" height="180" fill="#161b22"/>
+<text x="200" y="28" text-anchor="middle" fill="#79c0ff" font-size="12" font-weight="700">开放任务 → 通用+Coding</text>
+<text x="700" y="28" text-anchor="middle" fill="#d29922" font-size="12" font-weight="700">封闭任务 → 工作流+专用工具</text>
+<rect x="40" y="50" width="320" height="100" rx="10" fill="#161b22" stroke="#58a6ff"/>
+<text x="200" y="80" text-anchor="middle" fill="#e6edf3" font-size="11">调研 / 排错 / 写代码 / 标书</text>
+<text x="200" y="104" text-anchor="middle" fill="#9db1c7" font-size="10">自主 Agent + 七件套 + 混合检索</text>
+<text x="200" y="128" text-anchor="middle" fill="#6e7f96" font-size="10">例：开发 · 咨询</text>
+<rect x="540" y="50" width="320" height="100" rx="10" fill="#161b22" stroke="#d29922"/>
+<text x="700" y="80" text-anchor="middle" fill="#e6edf3" font-size="11">报销 / 发版 / 巡检 / 客服</text>
+<text x="700" y="104" text-anchor="middle" fill="#9db1c7" font-size="10">固定工作流 + 专用工具 + 强校验</text>
+<text x="700" y="128" text-anchor="middle" fill="#6e7f96" font-size="10">例：交付 · PMO</text>
+</svg>
+<div class="cap"><b>图 · 两类任务的常见配法</b>开放任务适合组合工具，规则明确的任务适合固定流程和校验。实际选择还是要看任务和环境。</div>
+</div>
+
+<details><summary>🎙 提示词（点击展开，3′）</summary><div class="inner">
+<p><b>第 1 分钟：</b>“选工具时先问三个问题：<b>结果好检查吗、数据能不能出域、以后要不要复用</b>。调研、排错和写代码这类开放任务，可以组合通用工具和 Coding；报销、发版和巡检这类规则明确的任务，可以优先考虑固定工作流和专用工具。”</p>
+<p><b>第 2 分钟：</b>“可以准备一个主用方案和一个备用方案。主用方案先跑通，备用方案用来应对断网、权限不足或客户环境不同的情况。本地模型、Markdown 资料库和脚本都可以作为备用，不必一开始选很多工具。”</p>
+<p><b>第 3 分钟：</b>“付费工具要不要用，最好用自己的任务验证。可以先试用一段时间，记录节省了多少时间、结果是否稳定、有没有额外风险，再按预算和公司规定决定是否继续或申请报销。下一页看看开始前可以准备什么。”</p>
+</div></details>
+
+<div class="footer-nav">
+  <a href="05-roles.html"><span class="dir">上一页</span>← 岗位实战</a>
+  <a class="next" href="07-action.html"><span class="dir">下一页 48–50′</span>观点+行动 →</a>
+</div>
+</div>
+</body>
+</html>

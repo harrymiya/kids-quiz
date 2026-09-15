@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>用好 Agent · 50分钟实战培训</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+</head>
+<body>
+<aside class="side-nav" aria-label="章节导航">
+  <a class="side-brand" href="index.html"><span class="mark">⚡</span><span>Agent 实战</span></a>
+  <div class="side-section">培训内容</div>
+  <a class="side-link active" aria-current="page" href="index.html"><span class="side-num">⌂</span><span>总览</span></a>
+  <a class="side-link" href="slides/00-open.html"><span class="side-num">00</span><span>开场</span></a>
+  <a class="side-link" href="slides/01-base.html"><span class="side-num">01</span><span>基座</span></a>
+  <a class="side-link" href="slides/02-eyes.html"><span class="side-num">02</span><span>眼睛 + 记忆</span></a>
+  <a class="side-link" href="slides/03-hands.html"><span class="side-num">03</span><span>手脚 + Coding</span></a>
+  <a class="side-link" href="slides/04-evolve.html"><span class="side-num">04</span><span>进化</span></a>
+  <a class="side-link" href="slides/05-roles.html"><span class="side-num">05</span><span>岗位实战</span></a>
+  <a class="side-link" href="slides/06-tools.html"><span class="side-num">06</span><span>工具选型</span></a>
+  <a class="side-link" href="slides/07-action.html"><span class="side-num">07</span><span>行动</span></a>
+</aside>
+<div class="topbar">
+  <div class="logo">⚡ Agent 实战</div>
+  <div class="crumb"><b>50分钟 · 从概念到尝试</b></div>
+  <div class="spacer"></div>
+  <button class="theme-toggle" id="themeToggle" title="切换主题">☀️</button>
+  <a href="slides/00-open.html">开始培训 →</a>
+</div>
+<div class="wrap">
+
+<div class="hero" style="padding-top:20px">
+  <div class="kicker">内部培训 · 50分钟 · 先了解方法，再做尝试</div>
+  <h1>从了解 <span class="accent">Agent</span>，到在工作里试一试</h1>
+  <p class="desc">面向开发、交付、项目经理和咨询岗位。这次不展开底层论文，主要聊三件事：<b>① Agent 大概是什么 ② 哪些工作环节值得试用 ③ 选工具和开始之前要注意什么</b>。内容参考《深入理解 AI Agent》（李博杰 v2.0）知识图谱，并按实际工作场景做了简化。</p>
+  <div class="meta">
+    <span class="badge b-brand">50 分钟</span>
+    <span class="badge b-cyan">75% 知识点 · 25% 实战</span>
+    <span class="badge b-green">附提示词</span>
+    <span class="badge b-purple">离线可用</span>
+  </div>
+</div>
+
+<h3>时间轴：按这个节奏推进，细节可以灵活调整</h3>
+<div class="tablewrap"><table>
+<tr><th>时间</th><th>页面</th><th>内容</th><th>占比</th></tr>
+<tr><td><b>0–3′</b></td><td><a href="slides/00-open.html" style="color:var(--brand2)">开场</a></td><td>为什么值得了解：行业变化、岗位机会、个人尝试</td><td>热身</td></tr>
+<tr><td><b>3–15′</b></td><td><a href="slides/01-base.html" style="color:var(--brand2)">基座</a></td><td>公式 Agent=LLM+上下文+工具 · ReAct · Harness · 工作流vs自主 · 5模式</td><td rowspan="4">知识点<br>约37′<br>(75%)</td></tr>
+<tr><td><b>15–24′</b></td><td><a href="slides/02-eyes.html" style="color:var(--brand2)">眼睛+记忆</a></td><td>上下文工程 · Skills · 状态栏 · 记忆/RAG（一句话版）</td></tr>
+<tr><td><b>24–33′</b></td><td><a href="slides/03-hands.html" style="color:var(--brand2)">手脚+Coding</a></td><td>工具五类 · MCP · 安全 · Coding Agent 七工具</td></tr>
+<tr><td><b>33–40′</b></td><td><a href="slides/04-evolve.html" style="color:var(--brand2)">进化浅讲</a></td><td>交互/评估/后训练/进化/多Agent（只讲用人结论）</td></tr>
+<tr><td><b>40–45′</b></td><td><a href="slides/05-roles.html" style="color:var(--brand2)">岗位实战</a></td><td>开发/交付/PM/咨询：拆解清单 + 第一周动作</td><td rowspan="3">实战<br>约13′<br>(25%)</td></tr>
+<tr><td><b>45–48′</b></td><td><a href="slides/06-tools.html" style="color:var(--brand2)">工具选型</a></td><td>市面 Agent × 岗位适配表</td></tr>
+<tr><td><b>48–50′+</b></td><td><a href="slides/07-action.html" style="color:var(--brand2)">观点+行动</a></td><td>几个观察 · 使用前准备 · 下一步 3 件事</td></tr>
+</table></div>
+
+<div class="note"><span class="lab">🎙 讲法</span>每页顶部有 <b>⏱ 时间 + 目标</b>，底部的 <b>提示词</b> 默认收起，点击标题即可展开。时间紧时先讲加粗句，细节在提示词里。</div>
+
+<h3>基座项目关系</h3>
+<p>本培训参考 <code>ai-agent-book-html</code>（《深入理解 AI Agent》知识图谱，10 章、引言和后记），做了两步简化：<b>① 压缩</b>——每章整理成 1–3 张卡；<b>② 换个角度</b>——把“怎么构建 Agent”转成“工作里可以怎么试”。想继续了解细节，可以参考相关章节。</p>
+
+<div class="formula"><span class="tag">先记住这句话</span>Agent = LLM + 上下文 + 工具<div class="mini-formula"><span class="mf" style="color:var(--brand2)">🧠 大脑定策略</span><span style="color:var(--dim)">+</span><span class="mf" style="color:var(--cyan)">👁 眼睛给背景</span><span style="color:var(--dim)">+</span><span class="mf" style="color:var(--green)">🖐 手脚干活</span></div></div>
+
+<h3>入口</h3>
+<div class="nav-grid">
+  <a class="nav-card" href="slides/00-open.html"><div class="cn" style="color:var(--brand)">0–3′ · 开场</div><h3>为什么值得了解</h3><p>工具在变化，外部也在尝试，先看看哪些环节适合自己。</p></a>
+  <a class="nav-card" href="slides/01-base.html"><div class="cn" style="color:var(--cyan)">3–15′ · 基座</div><h3>一张图看懂 Agent</h3><p>ReAct 想→做→看 · Harness 五件套 · 工作流 vs 自主。</p></a>
+  <a class="nav-card" href="slides/02-eyes.html"><div class="cn" style="color:var(--green)">15–24′ · 眼睛</div><h3>背景给得越清楚，结果越容易检查</h3><p>上下文 / Skills / 状态栏 / 记忆 RAG 简介。</p></a>
+  <a class="nav-card" href="slides/03-hands.html"><div class="cn" style="color:var(--yellow)">24–33′ · 手脚</div><h3>工具和 Coding，决定能帮上什么忙</h3><p>五类工具 · MCP · 安全措施 · Coding Agent 常用能力。</p></a>
+  <a class="nav-card" href="slides/04-evolve.html"><div class="cn" style="color:var(--purple)">33–40′ · 进化</div><h3>底层概念，先看和工作有关的部分</h3><p>评估 / 后训练 / 进化 / 多 Agent / 交互，快速了解。</p></a>
+  <a class="nav-card" href="slides/05-roles.html"><div class="cn" style="color:var(--orange)">40–45′ · 岗位</div><h3>四岗实战清单</h3><p>开发 / 交付 / PM / 咨询，第一周做什么。</p></a>
+  <a class="nav-card" href="slides/06-tools.html"><div class="cn" style="color:var(--brand)">45–48′ · 选型</div><h3>按任务选择工具</h3><p>写代码、做研究、现场支持和项目管理，各有不同配法。</p></a>
+  <a class="nav-card" href="slides/07-action.html"><div class="cn" style="color:var(--red)">48–50′ · 行动</div><h3>几个观察和下一步 3 件事</h3><p>使用前准备 / 现实限制 / 可以先试的动作。</p></a>
+</div>
+
+<div class="card"><h5>讲师自查（开讲前 1 分钟）</h5>
+<ul><li>离线打开正常？本材料没有外部依赖，断网也能讲。</li><li>热点、合规的网络方案和模型账号是否准备好？现场演示最好有备用安排。</li><li>准备一个自己的真实案例（周报、排错、标书任选一段），第 40 分钟后演示 1 分钟，方便大家比较前后差别。</li></ul></div>
+
+<div class="footer-nav">
+  <a href="#"><span class="dir">起始页</span>📖 培训总览</a>
+  <a class="next" href="slides/00-open.html"><span class="dir">开始</span>开场 · 为什么值得了解 →</a>
+</div>
+<p style="text-align:center;color:var(--dim);font-size:12.5px;margin-top:34px">⚡ Agent 实战培训 · 基于《深入理解 AI Agent》压缩改编 · 仅供内部学习</p>
+</div>
+</body>
+</html>

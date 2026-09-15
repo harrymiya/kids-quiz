@@ -43,4 +43,13 @@ export const api = {
   aiChat: (messages, context) => request('/ai/chat', { method: 'POST', body: JSON.stringify({ messages, context }) }),
   aiAnalyze: (profileId) => request('/ai/analyze', { method: 'POST', body: JSON.stringify({ profileId }) }),
   aiQuestions: (profileId, subjectId, count, focus) => request('/ai/questions', { method: 'POST', body: JSON.stringify({ profileId, subjectId, count, focus }) }),
+  importQuestionBank: async (profileId, file) => {
+    const form = new FormData(); form.append('profileId', String(profileId)); form.append('file', file);
+    const res = await fetch(`${API}/question-banks/import`, { method: 'POST', body: form });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || `上传失败(${res.status})`);
+    return data;
+  },
+  questionBanks: (profileId) => request(`/question-banks?profileId=${profileId}`),
+  deleteQuestionBank: (profileId, id) => request(`/question-banks/${id}`, { method: 'DELETE', body: JSON.stringify({ profileId }) }),
 };

@@ -176,8 +176,8 @@ main{position:relative;z-index:1}.screen{display:none;min-height:100vh;padding:1
 .agent-trace{display:block;margin-top:7px;padding-top:6px;border-top:1px solid var(--line);color:var(--muted);font-size:10px;font-weight:800}
 .learning-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:8px;font-size:12px}
 .learning-tools button{border:1px solid #b8eadf;background:var(--mint-soft);color:#16866d;border-radius:8px;padding:6px 9px;font:inherit;font-weight:900;cursor:pointer}
-.learning-tools button:hover{background:#c9f2e8}
-.chat-input-row{display:flex;gap:8px;align-items:center}
+.learning-tools button:hover{background:#c9f2e8}.bank-item{display:inline-flex;align-items:center}.bank-delete{border-radius:0 8px 8px 0!important;padding:6px 8px!important;color:#d66!important}.custom-banks{background:#fffaf0}
+.chat-input-row{display:flex;gap:8px;align-items:center}.upload-btn{border:0;background:#fff1d6;color:#a56a00;border-radius:14px;padding:12px 10px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap}.upload-btn:disabled{opacity:.6;cursor:wait}
 .chat-input-row input{flex:1;border:2px solid var(--line);background:#fff;border-radius:16px;padding:13px 14px;font:inherit;min-height:50px}
 .chat-input-row .primary-btn{padding:13px 20px;font-size:15px}
 .mic-btn{width:52px;height:52px;flex:0 0 auto;border-radius:16px;border:2px solid var(--line);background:#fff;font-size:24px;cursor:pointer}

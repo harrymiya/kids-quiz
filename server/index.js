@@ -6,6 +6,7 @@ import { resolveLLM } from './llm.js';
 import profilesRouter from './routes/profiles.js';
 import learningRouter from './routes/learning.js';
 import aiRouter from './routes/ai.js';
+import questionBanksRouter from './routes/question-banks.js';
 
 const app = express();
 app.use(express.json({ limit: '1mb' }));
@@ -13,6 +14,13 @@ app.use(express.json({ limit: '1mb' }));
 app.use('/api', profilesRouter);
 app.use('/api', learningRouter);
 app.use('/api', aiRouter);
+app.use('/api', questionBanksRouter);
+
+app.use((error, _request, response, _next) => {
+  if (error?.type === 'entity.too.large') return response.status(413).json({ error: '请求内容过大' });
+  console.error(error);
+  return response.status(500).json({ error: '服务器处理请求时出错' });
+});
 
 if (process.env.NODE_ENV === 'production') app.use(express.static(resolve(rootDir, 'dist')));
 const port = Number(process.env.PORT || 8787);

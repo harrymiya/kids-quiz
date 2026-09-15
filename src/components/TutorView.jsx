@@ -11,6 +11,9 @@ function TutorView({ profile, subject, profiles, mistakes, msgs, setMsgs, pendin
   const [voiceMode, setVoiceMode] = useState(false);
   const voiceModeRef = useRef(false);
   const [tools, setTools] = useState([]);
+  const [banks, setBanks] = useState([]);
+  const [uploading, setUploading] = useState(false);
+  const fileRef = useRef(null);
   const bottomRef = useRef(null);
   const accuracy = profile?.attempts ? Math.round((profile.correct_answers / profile.attempts) * 100) : null;
 
@@ -18,7 +21,9 @@ function TutorView({ profile, subject, profiles, mistakes, msgs, setMsgs, pendin
   useEffect(() => () => { voiceModeRef.current = false; stopListen(); stopSpeak(); }, []);
 
   useEffect(() => {
-    if (profile?.id) api.learningTools(profile.id).then(setTools).catch(() => setTools([]));
+    if (!profile?.id) return;
+    api.learningTools(profile.id).then(setTools).catch(() => setTools([]));
+    api.questionBanks(profile.id).then(setBanks).catch(() => setBanks([]));
   }, [profile?.id]);
 
   const context = () => ({
@@ -53,6 +58,18 @@ function TutorView({ profile, subject, profiles, mistakes, msgs, setMsgs, pendin
       setMsgs((list) => [...list, { role: 'assistant', content: `哎呀，信号不太好：${e.message}。先看看错题本，或者换一道题试试吧！` }]);
       if (voiceModeRef.current) { voiceModeRef.current = false; setVoiceMode(false); }
     } finally { setBusy(false); }
+  };
+
+  const uploadFile = async (file) => {
+    if (!file || uploading || !profile?.id) return;
+    if (!/\.(pdf|doc|docx)$/i.test(file.name)) { flash('请上传 Word（doc/docx）或 PDF 文件'); return; }
+    setUploading(true);
+    try {
+      const result = await api.importQuestionBank(profile.id, file);
+      api.questionBanks(profile.id).then(setBanks).catch(() => {});
+      setMsgs((list) => [...list, { role: 'user', content: `📎 上传了《${file.name}》` }, { role: 'assistant', content: `已把《${file.name}》拆解成 ${result.count} 道题，存入你的★专属题库啦！现在可以让我从这套题库里抽题练习。` }]);
+    } catch (e) { flash(e.message); }
+    finally { setUploading(false); if (fileRef.current) fileRef.current.value = ''; }
   };
 
   // speech to speech 循环:听 → 问AI → 播报 → 继续听
@@ -107,7 +124,8 @@ function TutorView({ profile, subject, profiles, mistakes, msgs, setMsgs, pendin
     <div className="chat-list">{msgs.map((m, i) => <div key={i} className={`chat-msg ${m.role}`}><span className="chat-avatar">{m.role === 'assistant' ? '🐶' : (profile?.avatar || '🧒')}</span><div className="chat-bubble">{m.content}{m.role === 'assistant' && m.steps?.length > 0 && <small className="agent-trace">🔧 已调用 {m.steps.map((step) => step.tool).join('、')}</small>}{m.role === 'assistant' && <button className="mini-btn" onClick={() => speak(m.content)}>🔈</button>}</div></div>)}{busy && <div className="chat-msg assistant"><span className="chat-avatar">🐶</span><div className="chat-bubble typing">威威思考中…</div></div>}<div ref={bottomRef} /></div>
     <div className="chip-row">{chips.map((c) => <button key={c} className="chip" onClick={() => chipSend(c)}>{c}</button>)}<button className="chip" onClick={() => setInput('根据我的学情创建一个记忆工具')}>🧰 创建学习工具</button></div>
     {tools.length > 0 && <div className="learning-tools"><b>🧰 我的学习工具</b>{tools.slice(0, 4).map((tool) => <button key={tool.id} title={tool.payload?.goal || ''} onClick={() => send(`请使用学习工具“${tool.name}”带我练习，先读取工具内容，再一次给我一个任务。`)}>{tool.name}</button>)}</div>}
-    <div className="chat-input-row"><button className={`mic-btn ${listening ? 'listening' : ''}`} onClick={micOnce} aria-label="语音输入">{listening ? '👂…' : '🎤'}</button><input value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && send(input)} placeholder={listening ? '正在听你说话…' : '打字或按话筒说话…'} maxLength="500" /><button className="primary-btn" disabled={busy || !input.trim()} onClick={() => send(input)}>发送</button></div>
+    {banks.length > 0 && <div className="learning-tools custom-banks"><b>★ 我的题库</b>{banks.map((bank) => <span className="bank-item" key={bank.id}><button title={bank.sourceName} onClick={() => send(`请读取我的★专属题库，并从《${bank.sourceName}》中选一道题考我。`)}>★ {bank.sourceName}（{bank.questions.length}题）</button><button className="bank-delete" title="删除题库" aria-label={`删除${bank.sourceName}`} onClick={async () => { await api.deleteQuestionBank(profile.id, bank.id); setBanks((list) => list.filter((item) => item.id !== bank.id)); }}>×</button></span>)}</div>}
+    <div className="chat-input-row"><input ref={fileRef} type="file" accept=".pdf,.doc,.docx" hidden onChange={(e) => uploadFile(e.target.files?.[0])} /><button className="upload-btn" onClick={() => fileRef.current?.click()} disabled={uploading || busy} title="上传 Word 或 PDF">{uploading ? '⏳ 解析中' : '📎 上传题目'}</button><button className={`mic-btn ${listening ? 'listening' : ''}`} onClick={micOnce} aria-label="语音输入">{listening ? '👂…' : '🎤'}</button><input value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && send(input)} placeholder={listening ? '正在听你说话…' : '打字或按话筒说话…'} maxLength="500" /><button className="primary-btn" disabled={busy || !input.trim()} onClick={() => send(input)}>发送</button></div>
   </div></section>;
 }
 

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>手脚+Coding 24–33′ — Agent实战培训</title>
+<link rel="stylesheet" href="../style.css">
+<script src="../theme.js"></script>
+</head>
+<body>
+<aside class="side-nav" aria-label="章节导航">
+  <a class="side-brand" href="../index.html"><span class="mark">⚡</span><span>Agent 实战</span></a>
+  <div class="side-section">培训内容</div>
+  <a class="side-link" href="../index.html"><span class="side-num">⌂</span><span>总览</span></a>
+  <a class="side-link" href="00-open.html"><span class="side-num">00</span><span>开场</span></a>
+  <a class="side-link" href="01-base.html"><span class="side-num">01</span><span>基座</span></a>
+  <a class="side-link" href="02-eyes.html"><span class="side-num">02</span><span>眼睛 + 记忆</span></a>
+  <a class="side-link active" aria-current="page" href="03-hands.html"><span class="side-num">03</span><span>手脚 + Coding</span></a>
+  <a class="side-link" href="04-evolve.html"><span class="side-num">04</span><span>进化</span></a>
+  <a class="side-link" href="05-roles.html"><span class="side-num">05</span><span>岗位实战</span></a>
+  <a class="side-link" href="06-tools.html"><span class="side-num">06</span><span>工具选型</span></a>
+  <a class="side-link" href="07-action.html"><span class="side-num">07</span><span>行动</span></a>
+</aside>
+<div class="topbar">
+  <div class="logo">⚡ Agent 实战</div>
+  <div class="crumb">手脚 24–33′ · <b>工具 + Coding 怎么配</b></div>
+  <div class="spacer"></div>
+  <button class="theme-toggle" id="themeToggle">☀️</button>
+  <a href="02-eyes.html">← 眼睛</a>
+  <a class="next" href="04-evolve.html">进化 →</a>
+</div>
+<div class="wrap">
+<div class="hero">
+  <div class="kicker">24–33′ · 通识 3/4 · 第 4+5 章压缩到 9 分钟</div>
+  <h1>工具接得好，<span class="accent">Agent 才更容易帮上忙</span></h1>
+  <p class="desc">工具让 Agent 能读取信息、修改内容或调用系统。写代码也常用来补齐自动化环节。这一页重点看工具怎么选，以及如何把权限和验证做好。</p>
+  <div class="meta"><span class="badge b-brand">⏱ 9分钟</span><span class="badge b-cyan">五类工具 · MCP</span><span class="badge b-green">Coding 七件套</span><span class="badge b-red">安全重点</span></div>
+</div>
+
+<h3>五类工具（按方向记）</h3>
+<div class="tablewrap"><table>
+<tr><th>类</th><th>方向</th><th>例子</th><th>用人提醒</th></tr>
+<tr><td>感知</td><td>环境→Agent</td><td>搜索/读文件/查库/调 API</td><td>从<b>最窄只读</b>起步，适合缓存并行；长内容要摘要+分页</td></tr>
+<tr><td>执行</td><td>Agent→环境</td><td>跑代码/写文件/调外部 API</td><td><b>风险通常更高</b>，建议先从只读和低风险操作开始</td></tr>
+<tr><td>协作</td><td>Agent↔Agent/人</td><td>子 Agent / 人工确认</td><td>专业分工 + 超时降级（5分钟无响应走保守策略）</td></tr>
+<tr><td>事件触发</td><td>外部驱动</td><td> webhook / 定时 / 告警 </td><td>第 33′ 交互章展开</td></tr>
+<tr><td>用户沟通</td><td>触达人</td><td>企微/邮件/语音/IM 网关</td><td>同上，渠道即手脚延伸</td></tr>
+</table></div>
+<div class="note"><span class="lab">🔧 一个设计思路</span><b>通用能力适合组合和探索；专用工具适合处理规则明确、风险较高的任务</b>（付款、删数、发邮件：参数写清楚、权限尽量小、保留审计记录）。工具说明可以按新员工手册来写：<b>名字直观、有例子、说清边界和协作方式</b>。MCP 可以理解为一种统一接口：工具按服务器分组，<b>接入第三方前检查描述和版本、隔离凭证，并确认展示的参数与实际执行一致</b>。</div>
+
+<h3>执行安全的三个常用措施</h3>
+<div class="tablewrap"><table>
+<tr><th></th><th>提议—审核</th><th>Sidecar 并行门控</th><th>沙盒+幂等</th></tr>
+<tr><td>时机</td><td>事前审批 / 事后验证</td><td>执行时同步检查</td><td>全程提供基础隔离</td></tr>
+<tr><td>看什么</td><td>产物（渲染/实跑验证）</td><td>只读结构化字段（如 {tool:bash, cmd:rm -rf}）</td><td>进程→容器→微VM逐级硬</td></tr>
+<tr><td>用人动作</td><td>不可逆操作先审批；<b>以 linter 和测试等结果为准</b></td><td>高风险操作转人工确认，低风险检查可以并行进行</td><td>venv 不是沙盒；可按需断网和设白名单；转账先查后改并防重复；发邮件保留确认步骤</td></tr>
+</table></div>
+<div class="note danger"><span class="lab">☠️ 只做关键词拦截还不够</span>即使限制了某个命令，也可能有人通过不同命令组合实现类似效果。<b>需要结合语义判断、权限控制和沙盒</b>。当<b>私有数据访问 + 不可信输入 + 对外通信</b>同时出现时，应提高审批和隔离级别；如果还有<strong>跨会话的持久记忆</strong>，也要纳入检查。</div>
+
+<div class="fig">
+<svg viewBox="0 0 900 190" xmlns="http://www.w3.org/2000/svg" font-family="sans-serif">
+<rect x="0" y="0" width="900" height="190" fill="#161b22"/>
+<text x="450" y="24" text-anchor="middle" fill="#6e7f96" font-size="11">主动发现工具：工具很多时，不必一次把全部说明放进提示词</text>
+<rect x="40" y="50" width="180" height="100" rx="10" fill="#1c2333" stroke="#58a6ff"/>
+<text x="130" y="80" text-anchor="middle" fill="#79c0ff" font-size="12" font-weight="700">Agent 声明缺口</text>
+<text x="130" y="104" text-anchor="middle" fill="#9db1c7" font-size="10">“我需要查内网工单”</text>
+<text x="130" y="126" text-anchor="middle" fill="#6e7f96" font-size="10">而非预置全量</text>
+<rect x="270" y="50" width="180" height="100" rx="10" fill="#1c2333" stroke="#39c5cf"/>
+<text x="360" y="80" text-anchor="middle" fill="#39c5cf" font-size="12" font-weight="700">服务器级路由</text>
+<text x="360" y="104" text-anchor="middle" fill="#9db1c7" font-size="10">数千→数十服务器</text>
+<text x="360" y="126" text-anchor="middle" fill="#6e7f96" font-size="10">语义匹配</text>
+<rect x="500" y="50" width="180" height="100" rx="10" fill="#1c2333" stroke="#3fb950"/>
+<text x="590" y="80" text-anchor="middle" fill="#3fb950" font-size="12" font-weight="700">工具级注入</text>
+<text x="590" y="104" text-anchor="middle" fill="#9db1c7" font-size="10">按需取 schema</text>
+<text x="590" y="126" text-anchor="middle" fill="#6e7f96" font-size="10">追加末尾保缓存</text>
+<rect x="730" y="50" width="130" height="100" rx="10" fill="#1c2333" stroke="#d29922"/>
+<text x="795" y="80" text-anchor="middle" fill="#d29922" font-size="12" font-weight="700">执行+审计</text>
+<text x="795" y="104" text-anchor="middle" fill="#9db1c7" font-size="10">可回滚</text>
+</svg>
+<div class="cap"><b>图 · 工具多了怎么办</b>基础工具常驻，其他工具按需查找；新的 schema 追加在末尾，有利于保持前缀稳定。Skills 也可以按“目录→按需读全文”的方式组织。</div>
+</div>
+
+<h3>Coding Agent：通用 Agent 的内核（七件套 + 流程）</h3>
+<p>为什么这里要讲 Coding？不少交付物最终要落到文件或代码上：PPT 可以由 OOXML 生成，PDF 可以由 MD/HTML 转换，可视化和一些 GUI 操作也能用脚本固化。以 OpenClaw 为例，它把网关、研究、电脑操作和 Coding 放在一起，文件系统是重要的协作位置。</p>
+<div class="grid">
+  <div class="tile grad"><div class="t"><i>🧮</i> Code Interpreter</div><p>在隔离环境里计算和跑数据，结果便于复核</p></div>
+  <div class="tile grad"><div class="t"><i>💻</i> Bash / 终端</div><p>常用的通用入口，注意保持会话环境</p></div>
+  <div class="tile grad2"><div class="t"><i>📖</i> Read / Write / Edit</div><p>读改写三件套，改前必读</p></div>
+  <div class="tile grad2"><div class="t"><i>🔍</i> Glob / Grep / 符号查找</div><p>由粗到细：文件名→内容→定义引用</p></div>
+</div>
+<div class="flow">
+  <div class="step"><span class="sn">1</span><b>文档化</b><small>README/CLAUDE.md 先行</small></div><div class="arrow">→</div>
+  <div class="step"><span class="sn">2</span><b>澄清+设计</b><small>交人审批再写</small></div><div class="arrow">→</div>
+  <div class="step"><span class="sn">3</span><b>编码+测试</b><small>测试通过后再进入交付</small></div><div class="arrow">→</div>
+  <div class="step"><span class="sn">4</span><b>审查交付</b><small>复核、更新文档、提交 Git</small></div>
+</div>
+<div class="note"><span class="lab">🛡 Harness 四件（Coding）</span>验收基线（测试/CI）· 执行边界（模块/依赖/权限）· 反馈信号（lint/类型）· 回退（Git/快照）。<b>限制条件优先于口头提醒</b>：能用权限和代码限制的，尽量不要只依赖文档。目标清楚、结果能自动验证的任务（例如有测试的 bug 修复）通常更适合先交给工具。遇到故障，可以按 <b>API、工具、上下文、控制流</b>分类，记录重试次数，必要时换方案或请人处理，并设置停止条件，避免无休止地重复调用。</div>
+
+<details><summary>🎙 提示词（点击展开，9′）</summary><div class="inner">
+<p><b>工具（3′）：</b>“工具大致分五类，先记住它们分别连接什么。<b>通用工具方便组合，专用工具方便做限制</b>。工具说明可以按新员工手册来写：名字直观、有例子，也说清边界。MCP 可以看成统一接口，接第三方前先检查版本和凭证。”</p>
+<p><b>安全（3′）：</b>“执行类操作风险相对更高，可以记住三个做法：<b>重要操作先审批、执行时做检查、用沙盒和防重复机制兜底</b>。venv 不是沙盒，仅靠关键词也覆盖不全；私有数据、不可信输入和对外通信同时出现时，要提高审核级别。发邮件和转账都建议保留确认步骤。”</p>
+<p><b>Coding（3′）：</b>“Coding 值得先讲，是因为它既能直接产出代码，也能帮助我们补齐脚本和自动化环节，结果相对容易测试。流程可以记成：<b>先看文档，再确认设计，写完跑测试，最后复核并用 Git 留痕</b>。优先选择目标清楚、能自动检查的任务；如果反复出错，要设置停止条件。”</p>
+</div></details>
+
+<div class="footer-nav">
+  <a href="02-eyes.html"><span class="dir">上一页</span>← 眼睛+记忆</a>
+  <a class="next" href="04-evolve.html"><span class="dir">下一页 33–40′</span>进化浅讲 →</a>
+</div>
+</div>
+</body>
+</html>

@@ -4,7 +4,7 @@ import { chatCompletion, resolveLLM } from './llm.js';
 import { KNOWLEDGE } from '../src/curriculum.js';
 
 const TOOL_LIMIT = 4;
-const TOOL_NAMES = new Set(['get_learning_state', 'get_mistakes', 'get_due_reviews', 'diagnose_mistakes', 'get_curriculum', 'make_learning_plan', 'create_learning_tool', 'list_learning_tools', 'recommend_video', 'start_practice', 'start_review', 'open_mistakes', 'open_galaxy', 'celebrate']);
+const TOOL_NAMES = new Set(['get_learning_state', 'get_mistakes', 'get_due_reviews', 'diagnose_mistakes', 'get_curriculum', 'get_custom_question_bank', 'make_learning_plan', 'create_learning_tool', 'list_learning_tools', 'recommend_video', 'start_practice', 'start_review', 'open_mistakes', 'open_galaxy', 'celebrate']);
 
 const profileOf = (profileId) => validId(profileId)
   ? db.prepare('SELECT id, name, grade FROM profiles WHERE id = ?').get(profileId)
@@ -69,6 +69,12 @@ const getCurriculum = (subjectId, grade) => {
     .slice(0, 40).map((item) => ({ subjectId: sid, ...item }))) };
 };
 
+const getCustomQuestionBank = (profileId) => {
+  if (!profileOf(profileId)) return { error: '档案不存在' };
+  const banks = db.prepare('SELECT id, name, source_name AS sourceName, questions, created_at AS createdAt FROM custom_question_banks WHERE profile_id = ? ORDER BY created_at DESC').all(profileId);
+  return { bank: banks.map((b) => ({ ...b, questions: jsonValue(b.questions, []) })) };
+};
+
 const createTool = (profileId, args) => {
   if (!profileOf(profileId)) return { error: '档案不存在' };
   const name = String(args?.name || '').trim().slice(0, 40);
@@ -95,6 +101,7 @@ const runTool = (name, args, context) => {
   if (name === 'get_due_reviews') return getDueReviews(context.profileId, args?.subjectId);
   if (name === 'diagnose_mistakes') return diagnoseMistakes(context.profileId, args?.subjectId);
   if (name === 'get_curriculum') return getCurriculum(args?.subjectId, context.grade);
+  if (name === 'get_custom_question_bank') return getCustomQuestionBank(context.profileId);
   if (name === 'create_learning_tool') return createTool(context.profileId, args);
   if (name === 'list_learning_tools') {
     return { tools: db.prepare('SELECT id, name, kind, payload, created_at AS createdAt FROM learning_tools WHERE profile_id = ? ORDER BY updated_at DESC LIMIT 30')
@@ -152,7 +159,7 @@ const AGENT_SYSTEM = `你是奇趣知识岛的学习 Agent，目标是提升孩�
 你拥有受控工具。每次回复必须只输出一个 JSON 对象，不要 markdown：
 {"message":"给孩子看的简短中文回复","tool":{"name":"工具名","args":{}}}
 如果不需要工具，tool 必须为 null。先观察学情再给建议；遇到错题先诊断原因，再给一个适量练习；不要一次塞太多内容。
-可用工具：get_learning_state(读取作答与闯关)、get_mistakes(读取未掌握错题，可传subjectId)、get_due_reviews(读取到期记忆复习，可传subjectId)、diagnose_mistakes(聚合错因模式，可传subjectId)、get_curriculum(读取目录，可传subjectId)、make_learning_plan(根据真实数据整理计划，可传days)、create_learning_tool(创建学习工具，args含name/kind/goal/instructions/items，kind只能是practice/flashcards/reflection/memory/plan)、list_learning_tools(读取已创建工具)、recommend_video(推荐一个主题视频)、start_practice(启动专练，传subjectId/focus/count)、start_review(启动到期复习，传subjectId/count)、open_mistakes(打开错题本)、open_galaxy(打开知识星图)、celebrate(为真实努力触发庆祝，可传message)。
+可用工具：get_learning_state(读取作答与闯关)、get_mistakes(读取未掌握错题，可传subjectId)、get_due_reviews(读取到期记忆复习，可传subjectId)、diagnose_mistakes(聚合错因模式，可传subjectId)、get_curriculum(读取目录，可传subjectId)、get_custom_question_bank(读取用户上传的★专属题库)、make_learning_plan(根据真实数据整理计划，可传days)、create_learning_tool(创建学习工具，args含name/kind/goal/instructions/items，kind只能是practice/flashcards/reflection/memory/plan)、list_learning_tools(读取已创建工具)、recommend_video(推荐一个主题视频)、start_practice(启动专练，传subjectId/focus/count)、start_review(启动到期复习，传subjectId/count)、open_mistakes(打开错题本)、open_galaxy(打开知识星图)、celebrate(为真实努力触发庆祝，可传message)。
 绝不执行代码、SQL、系统命令；不索要密钥、住址等隐私；不羞辱孩子。工具结果只用于本次教学。发起 start_practice、start_review、open_mistakes 或 open_galaxy 后，下一轮必须停止调用工具并给出简短说明。`;
 
 const parseDecision = (reply) => {
