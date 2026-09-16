@@ -1,5 +1,5 @@
 /* =====================================================================
-   《安利Agent》培训材料 — 主题切换脚本 (theme.js)
+   《拥抱Agent》培训材料 — 主题切换脚本 (theme.js)
    亮/暗双主题切换 · localStorage 记忆 · 防闪烁
    用法：每个页面在 <head> 引入 + 在 topbar spacer 后放
    <button class="theme-toggle" id="themeToggle" title="切换主题">☀️</button>

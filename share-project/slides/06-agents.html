@@ -3,38 +3,76 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>主流 Agent · 安利Agent培训</title>
+<title>主流 Agent · 拥抱Agent培训</title>
 <link rel="stylesheet" href="../style.css">
 <script src="../theme.js"></script>
 </head>
 <body>
 <aside class="side-nav" aria-label="章节导航">
-  <a class="side-brand" href="../index.html"><span class="mark">⚡</span><span>安利Agent</span></a><div class="side-section">培训内容</div>
-  <a class="side-link" href="../index.html"><span class="side-num">⌂</span><span>总览</span></a><a class="side-link" href="00-open.html"><span class="side-num">01</span><span>先讲观点</span></a><a class="side-link" href="01-base.html"><span class="side-num">02</span><span>Agent 是什么</span></a><a class="side-link" href="02-eyes.html"><span class="side-num">03</span><span>让它看懂</span></a><a class="side-link" href="03-hands.html"><span class="side-num">04</span><span>让它做事</span></a><a class="side-link" href="04-evolve.html"><span class="side-num">05</span><span>丝滑使用的要件</span></a><a class="side-link" href="05-roles.html"><span class="side-num">06</span><span>四类岗位</span></a><a class="side-link active" aria-current="page" href="06-agents.html"><span class="side-num">07</span><span>主流 Agent</span></a><a class="side-link" href="07-repo.html"><span class="side-num">08</span><span>我的 GitHub 仓库</span></a><a class="side-link" href="06-tools.html"><span class="side-num">09</span><span>工具与边界</span></a><a class="side-link" href="07-action.html"><span class="side-num">10</span><span>明天开始</span></a>
+  <a class="side-brand" href="../index.html"><span class="mark">⚡</span><span>拥抱Agent</span></a><div class="side-section">培训内容</div>
+  <a class="side-link" href="../index.html"><span class="side-num">⌂</span><span>总览</span></a><a class="side-link" href="00-open.html"><span class="side-num">01</span><span>先讲观点</span></a><a class="side-link" href="01-base.html"><span class="side-num">02</span><span>Agent 是什么</span></a><a class="side-link" href="05-roles.html"><span class="side-num">03</span><span>四类岗位</span></a><a class="side-link active" aria-current="page" href="06-agents.html"><span class="side-num">04</span><span>主流 Agent</span></a><a class="side-link" href="02-eyes.html"><span class="side-num">05</span><span>让它看懂</span></a><a class="side-link" href="03-hands.html"><span class="side-num">06</span><span>让它做事</span></a><a class="side-link" href="04-evolve.html"><span class="side-num">07</span><span>丝滑使用的要件</span></a><a class="side-link" href="07-repo.html"><span class="side-num">08</span><span>我的 GitHub 仓库</span></a><a class="side-link" href="06-tools.html"><span class="side-num">09</span><span>工具与边界</span></a><a class="side-link" href="07-action.html"><span class="side-num">10</span><span>明天开始</span></a>
 </aside>
-<div class="topbar"><div class="logo">⚡ 安利Agent</div><div class="crumb">主流 Agent · <b>先看定位，再选工具</b></div><div class="spacer"></div><button class="theme-toggle" id="themeToggle" title="切换主题">☀️</button><a href="05-roles.html">← 四类岗位</a><a class="next" href="07-repo.html">我的 GitHub 仓库 →</a></div>
+<div class="topbar"><div class="logo">⚡ 拥抱Agent</div><div class="crumb">主流 Agent · <b>先看定位，再选工具</b></div><div class="spacer"></div><button class="theme-toggle" id="themeToggle" title="切换主题">☀️</button><a href="05-roles.html">← 四类岗位</a><a class="next" href="02-eyes.html">让它看懂 →</a></div>
 <div class="wrap">
-<div class="hero"><div class="kicker">42–46′ · 产品速览：不做排名</div><h1>市面上的 Agent，<span class="accent">不是一个赛道</span></h1><p class="desc">先按形态理解，不急着比较谁最好：有的专注 Coding，有的擅长长任务和多 Agent，有的更像个人或办公工作台。</p><div class="meta"><span class="badge b-brand">Coding</span><span class="badge b-purple">长任务</span><span class="badge b-cyan">个人 / 办公</span><span class="badge b-green">不做排名</span></div></div>
+<div class="hero"><div class="kicker">22–27′ · 产品地图：按入口和任务选</div><h1>主流 Agent，<span class="accent">先看它在哪里干活</span></h1><p class="desc">“Agent”不是一个单一品类：有的在 IDE 里改代码，有的在终端或云端跑长任务，有的连接办公与企业系统。下面覆盖开发者最常遇到的国际与国内入口，不做排名。</p><div class="meta"><span class="badge b-brand">Coding</span><span class="badge b-purple">IDE / CLI / 云端</span><span class="badge b-cyan">办公 / 研究</span><span class="badge b-yellow">国内生态</span><span class="badge b-green">不做排名</span></div></div>
 
-<div class="tablewrap"><table>
-<tr><th>Agent</th><th>一句话定位</th><th>适合先试什么</th><th>记住它的特点</th></tr>
+<div class="note ok"><span class="lab">先分清三个词</span><b>模型 ≠ Agent ≠ 平台。</b> DeepSeek、通义千问、豆包、GLM 等首先是模型或模型服务；Copilot、Cursor、通义灵码、TRAE 等是把模型接上上下文、工具和审批流程的产品；Coze、Dify、LangGraph 等更偏 Agent 的构建与编排平台。</div>
+
+<h3>一、Coding Agent：写代码、修 Bug、交付 PR</h3>
+<div class="tablewrap"><table class="agent-table">
+<tr><th>Agent</th><th>形态 / 来源</th><th>适合先试什么</th><th>记住它的特点</th></tr>
+<tr class="agent-group"><td colspan="4">IDE 协作型｜编辑器里直接理解上下文、改多文件</td></tr>
+<tr><td><b>GitHub Copilot</b><br><a href="https://docs.github.com/en/copilot/get-started/about-github-copilot" target="_blank" rel="noreferrer">官方文档 ↗</a></td><td>GitHub / Microsoft 的 IDE、GitHub 和 CLI Agent</td><td>从 Issue 到分支、代码和 Pull Request</td><td>和仓库、Issue、PR、Actions 深度结合；适合已有 GitHub 工作流的团队</td></tr>
+<tr><td><b>Cursor</b><br><a href="https://cursor.com/docs/agent/overview" target="_blank" rel="noreferrer">官方文档 ↗</a></td><td>AI 原生 IDE + CLI / Cloud Agent</td><td>跨文件功能、重构、排错和代码审查</td><td>代码库检索、计划、多文件编辑、终端和后台任务都集成在编辑器里</td></tr>
+<tr><td><b>Windsurf</b><br><a href="https://windsurf.com/" target="_blank" rel="noreferrer">官方网站 ↗</a></td><td>AI 原生 IDE / Agent</td><td>边写边问、跨文件修改和快速做原型</td><td>以 IDE 内的 Cascade 协作体验为主，适合希望少切换工具的开发者</td></tr>
+<tr><td><b>Gemini Code Assist / CLI</b><br><a href="https://docs.cloud.google.com/gemini/docs/codeassist/agent-mode" target="_blank" rel="noreferrer">官方文档 ↗</a></td><td>Google 的 IDE 与终端 Agent</td><td>代码理解、功能实现、测试和 Google Cloud 相关任务</td><td>IDE Agent mode 与开源 Gemini CLI 适合喜欢终端、Google 生态的团队</td></tr>
+<tr><td><b>Amazon Q Developer</b><br><a href="https://aws.amazon.com/q/developer/build/" target="_blank" rel="noreferrer">官方介绍 ↗</a></td><td>AWS 的 IDE / CLI / 云开发 Agent</td><td>AWS 应用、升级迁移、排错、测试和安全扫描</td><td>能理解 AWS 资源与文档；企业选型要看 IAM、区域、数据和套餐</td></tr>
+<tr><td><b>Cline</b><br><a href="https://github.com/cline/cline" target="_blank" rel="noreferrer">官方仓库 ↗</a></td><td>开源 IDE / CLI / 桌面 Coding Agent</td><td>希望自己选择模型、工具和审批粒度的开发任务</td><td>支持 BYOK、MCP、规则和人工确认；灵活，但模型与密钥由团队负责</td></tr>
+<tr><td><b>通义灵码<br><small>现 Qoder CN 系列</small></b><br><a href="https://lingma.aliyun.com/" target="_blank" rel="noreferrer">官方介绍 ↗</a></td><td>阿里云的 IDE / CLI / 企业 Coding Agent</td><td>工程问答、多文件修改、单测、报错排查</td><td>工程自动感知、终端工具、知识库和企业管理能力较完整；注意品牌正在升级</td></tr>
+<tr><td><b>TRAE / MarsCode</b><br><a href="https://www.trae.cn/" target="_blank" rel="noreferrer">TRAE 官网 ↗</a></td><td>字节跳动的 AI 原生 IDE；原 MarsCode 插件已更名为 Trae Plugin</td><td>中文需求、从 0 做应用、跨文件修改和原型验证</td><td>IDE 内的 SOLO / Agent、Rules、MCP 和远程开发是主要入口</td></tr>
+<tr><td><b>文心快码 Comate</b><br><a href="https://comate.baidu.com/docs/IDE%E5%8A%9F%E8%83%BD/%E6%99%BA%E8%83%BD%E4%BD%93/%E6%A6%82%E8%A7%88/" target="_blank" rel="noreferrer">官方文档 ↗</a></td><td>百度的 IDE 插件 / 独立 AI IDE</td><td>代码库检索、需求到代码、单测、评审和修复</td><td>Zulu 智能体支持多文件、终端和 MCP；有企业版与私有化选项</td></tr>
+<tr><td><b>腾讯 CodeBuddy</b><br><a href="https://cloud.tencent.com/product/acc" target="_blank" rel="noreferrer">官方介绍 ↗</a></td><td>腾讯云的 IDE / CodeBuddy IDE / CLI 体系</td><td>Craft 多文件开发、代码补全、测试、评审和云端开发</td><td>支持多模型、MCP、知识库和企业研发流程；按部署与数据边界评估</td></tr>
+<tr><td><b>CodeGeeX</b><br><a href="https://www.codegeex.cn/" target="_blank" rel="noreferrer">官方网站 ↗</a></td><td>智谱的 IDE 编程助手 / 企业方案</td><td>代码生成补全、翻译、注释、问答和代码审查</td><td>覆盖多语言和主流 IDE；企业版支持 RAG、管理后台与私有化部署</td></tr>
+<tr><td><b>华为云 CodeArts Agent</b><br><a href="https://codearts.huaweicloud.com/download.html" target="_blank" rel="noreferrer">官方介绍 ↗</a></td><td>华为云的 IDE / 桌面 / 终端代码智能体</td><td>企业研发、从需求到实现、调试、测试和部署</td><td>与 CodeArts 和华为云生态结合，适合重点关注国产化与企业交付的团队</td></tr>
+<tr class="agent-group"><td colspan="4">终端 / 本地工程型｜本机读写文件、执行命令、保留 Git 控制</td></tr>
+<tr><td><b>Claude Code</b><br><a href="https://code.claude.com/docs" target="_blank" rel="noreferrer">官方文档 ↗</a></td><td>Anthropic 的终端型 Coding Agent</td><td>理解代码库、修 Bug、改多文件、跑命令</td><td>偏深度代码协作，终端为主，也可接入 IDE；权限和命令需审阅</td></tr>
+<tr><td><b>OpenCode</b><br><a href="https://opencode.ai/en/docs" target="_blank" rel="noreferrer">官方文档 ↗</a></td><td>开源、终端型 Coding Agent</td><td>终端、桌面或 IDE 里的开发任务</td><td>可接不同模型供应商，适合想保留模型选择权的团队</td></tr>
 <tr><td><b>Pi</b><br><a href="https://pi.dev/" target="_blank" rel="noreferrer">官方资料 ↗</a></td><td>开源、终端型 Coding Agent</td><td>读项目、改代码、写脚本</td><td>多模型切换，强调可扩展的 Agent Harness</td></tr>
-<tr><td><b>OpenCode</b><br><a href="https://opencode.ai/en/docs" target="_blank" rel="noreferrer">官方文档 ↗</a></td><td>开源 Coding Agent</td><td>终端、桌面或 IDE 里的开发任务</td><td>可接不同模型供应商，适合想保留选择权的团队</td></tr>
+<tr><td><b>Aider</b><br><a href="https://aider.chat/" target="_blank" rel="noreferrer">官方网站 ↗</a></td><td>开源、Git 优先的终端 Coding Agent</td><td>小步修改、结对编程、提交清晰的 Git diff</td><td>终端体验简单直接，适合把 Agent 纳入已有 Git 工作流</td></tr>
+<tr><td><b>Kimi Code</b><br><a href="https://www.kimi.com/code/" target="_blank" rel="noreferrer">官方介绍 ↗</a></td><td>月之暗面的 CLI / IDE Coding Agent</td><td>读大型代码库、改文件、跑命令和技术调研</td><td>终端优先，支持 IDE、Skills、子 Agent 和长上下文任务</td></tr>
+<tr><td><b>Qwen Code</b><br><a href="https://github.com/QwenLM/qwen-code" target="_blank" rel="noreferrer">官方仓库 ↗</a></td><td>通义千问团队的开源终端 Coding Agent</td><td>终端开发、脚本自动化和可编程 Agent 流程</td><td>支持交互式、无头、ACP、服务端和 IDE 客户端形态，模型与运行环境可拆开选</td></tr>
+<tr class="agent-group"><td colspan="4">云端 / 异步长任务型｜后台执行、回传分支或交付结果</td></tr>
+<tr><td><b>Codex</b><br><a href="https://openai.com/codex/" target="_blank" rel="noreferrer">官方介绍 ↗</a></td><td>面向工程交付的 Coding Agent</td><td>开发、重构、测试、代码审查和 CI</td><td>覆盖 ChatGPT、编辑器、终端和云端，可做端到端工程任务</td></tr>
+<tr><td><b>Devin</b><br><a href="https://devin.ai/" target="_blank" rel="noreferrer">官方网站 ↗</a></td><td>云端自主软件工程 Agent</td><td>分配较完整的 Issue、调研或工程任务</td><td>远程工作区长时间运行，适合异步交付；必须审阅分支、代码和测试</td></tr>
+<tr><td><b>OpenHands</b><br><a href="https://docs.openhands.dev/overview/introduction" target="_blank" rel="noreferrer">官方文档 ↗</a></td><td>开源软件开发 Agent 平台</td><td>本地、云端或企业环境中的复杂工程任务</td><td>CLI、GUI、Cloud、SDK 和企业自托管形态都覆盖，隔离环境很重要</td></tr>
 <tr><td><b>Prime Agent</b><br><a href="https://github.com/PrimeIntellect-ai/prime-agent" target="_blank" rel="noreferrer">官方仓库 ↗</a></td><td>面向长任务的开源 Coding / Research Agent</td><td>长时间调研、评测、复杂工程任务</td><td>持久 REPL、子 Agent、目标和后台运行；权限边界要单独做</td></tr>
-<tr><td><b>Codex</b><br><a href="https://openai.com/codex/" target="_blank" rel="noreferrer">官方介绍 ↗</a></td><td>面向工程交付的 Coding Agent</td><td>开发、重构、测试、代码审查和 CI</td><td>覆盖 ChatGPT、编辑器和终端，可做端到端工程任务</td></tr>
-<tr><td><b>Claude Code</b><br><a href="https://code.claude.com/docs" target="_blank" rel="noreferrer">官方文档 ↗</a></td><td>Anthropic 的 Coding Agent</td><td>理解代码库、修 Bug、改多文件、跑命令</td><td>终端、IDE、桌面和浏览器都可用，适合深度代码协作</td></tr>
-<tr><td><b>Hermes</b><br><a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noreferrer">官方仓库 ↗</a></td><td>开源、可自托管的个人 Agent</td><td>个人助理、消息渠道、记忆和自动化</td><td>CLI / TUI + 消息网关 + 持久记忆和 Skills</td></tr>
-<tr><td><b>OpenClaw</b><br><a href="https://github.com/openclaw/openclaw" target="_blank" rel="noreferrer">官方仓库 ↗</a></td><td>运行在自己设备上的开源个人 Agent</td><td>聊天入口、设备协作、个人或团队自动化</td><td>Gateway 连接多渠道，模型和 Harness 可插拔；权限要谨慎</td></tr>
+</table></div>
+
+<h3>二、通用、办公与自托管 Agent</h3>
+<div class="tablewrap"><table class="agent-table">
+<tr><th>Agent</th><th>形态 / 来源</th><th>适合先试什么</th><th>记住它的特点</th></tr>
+<tr class="agent-group"><td colspan="4">通用工作 / 研究型｜搜索、读文件、分析资料、生成交付物</td></tr>
+<tr><td><b>ChatGPT Work</b><br><a href="https://help.openai.com/en/articles/11752874-chatgpt-agent" target="_blank" rel="noreferrer">官方说明 ↗</a></td><td>通用工作、研究与成品交付 Agent</td><td>网页研究、文件处理、表格、报告和多步骤工作</td><td>更适合非纯编码任务；登录、外部连接和高影响操作要保留人工接管</td></tr>
+<tr><td><b>Kimi Agent</b><br><a href="https://www.kimi.com/en/help/agent/agent-overview" target="_blank" rel="noreferrer">官方说明 ↗</a></td><td>面向个人工作的中文通用 Agent</td><td>联网搜索、资料整理、文档、PPT、数据分析和规划</td><td>文件、浏览器、终端等工具组合较丰富；事实和敏感数据仍需核验</td></tr>
+<tr><td><b>QoderWork CN</b><br><a href="https://help.aliyun.com/zh/lingma" target="_blank" rel="noreferrer">官方说明 ↗</a></td><td>阿里云 Qoder CN 系列的办公 / 桌面 Agent</td><td>办公自动化、文件处理、研究和企业内任务</td><td>与 Qoder CN / 通义灵码同属产品系列，适合关注国内部署和企业合规的场景</td></tr>
+<tr class="agent-group"><td colspan="4">办公套件 / 企业流程型｜把 Agent 接到组织知识、协作和权限体系</td></tr>
+<tr><td><b>Microsoft 365 Copilot / Copilot Studio</b><br><a href="https://www.microsoft.com/microsoft-365/copilot" target="_blank" rel="noreferrer">官方介绍 ↗</a></td><td>微软的办公助手与企业 Agent 构建平台</td><td>Teams、Word、Excel、Outlook、企业知识和流程自动化</td><td>价值在 Microsoft 365 / Graph / 权限体系；企业要重点审查数据访问与治理</td></tr>
 <tr><td><b>WorkBuddy</b><br><a href="https://cloud.tencent.com/product/workbuddy" target="_blank" rel="noreferrer">腾讯云介绍 ↗</a></td><td>腾讯的全场景桌面 AI 工作台</td><td>办公、项目管理、交付和桌面操作</td><td>更接近企业办公入口，重点看公司环境、数据和套餐政策</td></tr>
+<tr class="agent-group"><td colspan="4">个人消息 / 自托管自动化｜从聊天入口召唤 Agent 操作自己的设备</td></tr>
+<tr><td><b>Hermes</b><br><a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noreferrer">官方仓库 ↗</a></td><td>开源、可自托管的个人 Agent</td><td>个人助理、消息渠道、记忆和自动化</td><td>CLI / TUI + 消息网关 + 持久记忆和 Skills；密钥与渠道权限自己负责</td></tr>
+<tr><td><b>OpenClaw</b><br><a href="https://github.com/openclaw/openclaw" target="_blank" rel="noreferrer">官方仓库 ↗</a></td><td>运行在自己设备上的开源个人 Agent</td><td>聊天入口、设备协作、个人或团队自动化</td><td>Gateway 连接多渠道，模型和 Harness 可插拔；权限要谨慎</td></tr>
+<tr class="agent-group"><td colspan="4">Agent 构建 / 编排平台｜把模型、知识库、工具和流程组装成自己的助手</td></tr>
+<tr><td><b>扣子 Coze</b><br><a href="https://www.coze.cn/" target="_blank" rel="noreferrer">官方网站 ↗</a></td><td>面向 Bot / Agent 的搭建与发布平台</td><td>知识库问答、工作流、客服和轻量应用</td><td>重点是可视化编排、插件和发布渠道，不等同于单一模型或 Coding Agent</td></tr>
+<tr><td><b>Dify</b><br><a href="https://dify.ai/" target="_blank" rel="noreferrer">官方网站 ↗</a></td><td>开源的 LLM 应用与 Agent 编排平台</td><td>企业知识库、RAG、工具调用和内部助手</td><td>可自托管、接多模型和工具；上线前要自己做权限、日志和评测</td></tr>
 </table></div>
 
 <h3>按工作选择，不按热度选择</h3>
-<div class="grid"><div class="tile grad"><div class="t"><i>🧑‍💻</i> 我主要做开发</div><p>先看 <b>Codex / Claude Code / OpenCode / Pi</b>；重点比较代码库理解、测试闭环、权限和模型来源。</p></div><div class="tile grad4"><div class="t"><i>⏳</i> 我需要长任务</div><p>先看 <b>Prime Agent / Hermes / OpenClaw</b>；重点比较后台运行、记忆、子 Agent 和人工接管。</p></div><div class="tile grad2"><div class="t"><i>📋</i> 我主要做交付、PM、咨询</div><p>先看 <b>WorkBuddy / Hermes / OpenClaw</b>，再按实际工具连接和数据边界决定。</p></div></div>
+<div class="grid"><div class="tile grad"><div class="t"><i>🧑‍💻</i> 我主要做开发</div><p>先看 <b>Codex / Copilot / Claude Code / Cursor</b>，国内可试 <b>Qoder CN / TRAE / CodeBuddy / Comate</b>；重点比较代码库理解、测试闭环、权限和模型来源。</p></div><div class="tile grad4"><div class="t"><i>⏳</i> 我需要长任务</div><p>先看 <b>Devin / OpenHands / Prime Agent / Codex</b>，也可试 <b>Kimi Code / Qwen Code</b>；重点比较后台运行、沙箱、记忆、子 Agent 和人工接管。</p></div><div class="tile grad2"><div class="t"><i>🏢</i> 我关心国内与企业合规</div><p>先看 <b>CodeBuddy / Comate / Qoder CN / CodeArts / CodeGeeX</b>；重点核对地区可用性、私有化、知识库、审计、账号和数据是否出域。</p></div><div class="tile grad3"><div class="t"><i>📋</i> 我主要做办公、交付、咨询</div><p>先看 <b>ChatGPT Work / Kimi Agent / Microsoft 365 Copilot / WorkBuddy</b>；要搭自己的助手，再看 <b>Coze / Dify / Hermes / OpenClaw</b>。</p></div></div>
 
 <div class="note warn"><span class="lab">⚠️ 选型提醒</span>这张表是“认识地图”，不是产品排名。版本、模型支持、价格、地区和公司策略都会变化；真正选型时先拿自己的任务做小范围验证。</div>
 
-<details><summary>🎙 讲师提示（约 3–4 分钟）</summary><div class="inner"><p>“市面上的 Agent 不是一个赛道。Pi、OpenCode、Codex、Claude Code 更偏开发；Prime Agent 更偏长任务和研究；Hermes、OpenClaw 更像可自托管的个人 Agent；WorkBuddy 更接近办公和桌面工作台。”</p><p>“大家不要背功能，也不要直接问谁最好。先问自己的任务是什么：要改代码，还是跑长任务，还是连接办公系统？”</p><p>“产品变化很快，所以这张表只帮助大家建立地图。最终还是要在自己的网络、模型、权限和安全边界里试一次。”</p></div></details>
-<div class="footer-nav"><a href="05-roles.html"><span class="dir">上一页 30–42′</span>四类岗位</a><a class="next" href="07-repo.html"><span class="dir">下一页 45–47′</span>我的 GitHub 仓库 · 看一个真实案例 →</a></div>
+<details><summary>🎙 讲师提示（约 3–4 分钟）</summary><div class="inner"><p>“这一页先把地图补全：Coding Agent 里有 Codex、GitHub Copilot、Claude Code、Cursor、Windsurf，也有 Cline、OpenHands、OpenCode、Pi 这样的开源入口；国内则有 Kimi Code、Qwen Code、Qoder CN、TRAE、文心快码、CodeBuddy、CodeGeeX 和 CodeArts。”</p><p>“注意 Copilot 有两条常见产品线：GitHub Copilot 主要服务软件研发，Microsoft 365 Copilot / Copilot Studio 主要服务办公与企业流程。通义灵码也正在升级到 Qoder CN 系列，MarsCode 插件则已更名为 Trae Plugin，看到旧资料时要能对上号。”</p><p>“大家不要逐行背功能，也不要直接问谁最好。先问自己的任务是什么：要改代码，跑长任务，还是连接办公系统？国内和企业环境还要把网络、数据、私有化和审计一起纳入选型。”</p><p>“模型、Agent 产品和编排平台也要分开看：同一个模型可以被多个 Agent 使用，同一个 Agent 也可能支持多家模型。最终仍然要在自己的任务、权限和安全边界里做小范围验证。”</p></div></details>
+<div class="footer-nav"><a href="05-roles.html"><span class="dir">上一页 12–22′</span>四类岗位</a><a class="next" href="02-eyes.html"><span class="dir">下一页 27–32′</span>让它看懂 · 任务描述模板 →</a></div>
 </div>
 </body>
 </html>

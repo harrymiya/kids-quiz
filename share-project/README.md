@@ -1,4 +1,4 @@
-# ⚡ 安利Agent（50 分钟培训材料）
+# ⚡ 拥抱Agent（50 分钟培训材料）
 
 ## 培训目标
 
@@ -11,7 +11,7 @@
 
 ## 讲课主线
 
-先亮明五个观点，再讲最小工作方法，最后落到岗位任务和明天的行动：
+先亮明五个观点和最小概念，再从岗位任务进入工具地图，最后用任务模板、工具边界和真实案例跑通闭环：
 
 1. 未来企业间、国家间、人与人之间的竞争，都会被 Agent 放大。
 2. 我们的步伐已经慢了，需要尽快把 Agent 放进日常工作。
@@ -25,19 +25,20 @@
 |---|---|---|
 | 0–5′ | `slides/00-open.html` | 五个观点，先形成共识 |
 | 5–12′ | `slides/01-base.html` | 只讲 Agent 的最小公式和工作闭环 |
-| 12–18′ | `slides/02-eyes.html` | 用五项模板把任务说清楚 |
-| 18–25′ | `slides/03-hands.html` | 工具、Coding、验证和安全边界 |
-| 25–30′ | `slides/04-evolve.html` | 四个要件和四个现实门槛 |
-| 30–42′ | `slides/05-roles.html` | 开发、交付、PM、咨询各找一个切入口 |
-| 42–45′ | `slides/06-agents.html` | 认识主流 Agent，按形态和任务理解 |
-| 45–48′ | `slides/07-repo.html` | 用三个真实仓库看 Agent 如何进入看板、工程和产品 |
-| 48–49′ | `slides/06-tools.html` | 按任务选主用方案和备用方案 |
+| 12–22′ | `slides/05-roles.html` | 先从开发、交付、PM、咨询找到自己的切入口 |
+| 22–27′ | `slides/06-agents.html` | 再认识国内外主流 Agent，按形态和任务选择 |
+| 27–32′ | `slides/02-eyes.html` | 用五项模板把任务说清楚 |
+| 32–39′ | `slides/03-hands.html` | 工具、Coding、验证和安全边界 |
+| 39–43′ | `slides/04-evolve.html` | 四个要件和四个现实门槛 |
+| 43–47′ | `slides/07-repo.html` | 用三个真实仓库看 Agent 如何进入看板、工程和产品 |
+| 47–49′ | `slides/06-tools.html` | 按任务选主用方案和备用方案 |
 | 49–50′ | `slides/07-action.html` | 明天三步，一周留下一个案例 |
 
 ## 讲师提示
 
 - 少讲术语，不展开模型训练、复杂架构和学术细节。
 - 讲 Linux / macOS 时并列说明：两者都能开发，重点推荐 Linux；抓住 CLI 自由编排、开源工具秒体验、Hermes/OpenClaw 接社交软件、Agent 串起完整工作链、Omarchy 作为个人实验工作台。
+- 讲主流 Agent 时不要只讲开源终端工具：补充 GitHub Copilot、Microsoft 365 Copilot、Cursor、Windsurf、Gemini、Amazon Q、Devin，以及国内的 Kimi Code、Qwen Code、通义灵码/Qoder CN、TRAE/MarsCode、文心快码、CodeBuddy、CodeGeeX、CodeArts；同时说明模型、Agent 产品和编排平台的区别。
 - 讲仓库案例时依次介绍 `agent-board`、`dcx-langgraph-dashboard`、`kids-quiz`：看见 Agent、组织 Agent、把 Agent 做成产品。
 - 每页只抓住标题和加粗结论，底部提示词可以直接照着讲。
 - 最好准备一个真实材料：代码、日志、会议纪要或方案材料任选一段。
@@ -61,11 +62,11 @@ share-project/
 └── slides/
     ├── 00-open.html        # 先讲观点
     ├── 01-base.html        # Agent 是什么
+    ├── 05-roles.html       # 四类岗位
+    ├── 06-agents.html      # 主流 Agent 速览
     ├── 02-eyes.html        # 让它看懂
     ├── 03-hands.html       # 让它做事
     ├── 04-evolve.html      # 丝滑使用的要件
-    ├── 05-roles.html       # 四类岗位
-    ├── 06-agents.html      # 主流 Agent 速览
     ├── 07-repo.html        # 我的 GitHub 仓库
     ├── 06-tools.html       # 工具与边界
     └── 07-action.html      # 明天开始
